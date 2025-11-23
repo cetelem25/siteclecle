@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Révisions 2GM – QCM</title>
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<h1>📝 QCM – Dates importantes</h1>
+
+<nav>
+  <a href="index.html">Accueil</a> |
+  <a href="qcm.html">QCM</a> |
+  <a href="fill.html">Texte à trous</a> |
+  <a href="match.html">Relier</a> |
+  <a href="videos.html">Vidéos</a>
+</nav>
+
+<div>
+  <label>Nombre de questions :
+    <select id="numDatesQ">
+      <option>5</option><option>8</option><option>10</option><option selected>30</option>
+    </select>
+  </label>
+  <button class="btn" onclick="generateDatesQCM()">Générer QCM</button>
+  <button class="btn" onclick="resetDatesQCM()">Réinitialiser</button>
+</div>
+
+<form id="qcmDatesForm"></form>
+<div id="qcmDatesScore"></div>
+
+<script src="script.js"></script>
+<script>generateDatesQCM();</script>
+</body>
+</html>
+q
