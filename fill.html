@@ -3,27 +3,30 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Révisions 2GM – Texte à trous</title>
+<title>Révisions 2GM – Texte à trous (paragraphe)</title>
 <style>
-  body{margin:0;background:#0f1320;color:#e9ecf1;font:15px system-ui;padding:16px}
-  h1{margin:8px 0 16px}
+  body{margin:0;background:#0f1320;color:#e9ecf1;font:16px system-ui;padding:18px}
+  h1{margin:4px 0 14px}
   nav a{color:#e9ecf1;margin-right:10px;text-decoration:none;font-weight:bold}
   .btn{padding:8px 12px;background:#1b2140;border:1px solid #232a40;border-radius:8px;color:#fff;cursor:pointer;transition:0.15s;margin:6px 6px 6px 0}
-  .btn:hover{filter:brightness(1.15)}
-  .fill-input{width:220px;padding:6px;border-radius:6px;border:1px solid #232a40;background:#0f1420;color:#e9ecf1;margin-left:8px}
-  .answer.ok{color:#4caf50;font-weight:700;margin-left:6px}
-  .answer.ko{color:#f44336;font-weight:700;margin-left:6px}
-  .answer.muted{color:#ccc;margin-left:6px}
-  #fillContainer div{margin:8px 0;padding:8px;background:#151a2b;border-radius:8px}
-  img.chrono{display:block;margin:12px auto 6px;max-width:95%;border-radius:8px;border:1px solid #232a40}
-  #fillResult{margin-top:12px;font-weight:bold}
-  .note{color:#cbd5ff;font-size:13px;margin-top:8px}
-  @media (max-width:720px){ .fill-input{width:140px} }
+  .btn:hover{filter:brightness(1.1)}
+  .fill-input{display:inline-block;width:120px;padding:4px 8px;border-radius:6px;border:1px solid #232a40;background:#0f1420;color:#e9ecf1;margin:0 6px;vertical-align:middle}
+  .fill-input.small{width:80px}
+  .answer.ok{color:#4caf50;font-weight:700;margin-left:8px}
+  .answer.ko{color:#f44336;font-weight:700;margin-left:8px}
+  .answer.muted{color:#ccc;margin-left:8px}
+  .container{background:#151a2b;border-radius:12px;padding:16px;margin-top:12px}
+  img.chrono{display:block;margin:12px auto 18px;max-width:95%;border-radius:8px;border:1px solid #232a40}
+  #fillResult{margin-top:12px;font-weight:700}
+  .controls{margin-top:12px}
+  @media (max-width:720px){
+    .fill-input{width:90px}
+  }
 </style>
 </head>
 <body>
 
-<h1>✏️ Texte à trous – Dates 2GM</h1>
+<h1>✏️ Texte à trous — Paragraphe continu</h1>
 
 <nav>
   <a href="index.html">Accueil</a> |
@@ -33,110 +36,182 @@
   <a href="videos.html">Vidéos</a>
 </nav>
 
-<!-- Frise (image générée) : si elle ne s'affiche pas, remplace le src par ton chemin local -->
-<img src="sandbox:/mnt/data/A_timeline_infographic_titled_%22Frise_chronologique.png" alt="Frise chronologique 2GM" class="chrono">
+<div class="container">
+  <!-- Frise (image uploadée) -->
+  <img src="/mnt/data/A_timeline_infographic_titled_%22Frise_chronologique.png" alt="Frise chronologique 2GM" class="chrono">
 
-<p>Complète chaque événement avec la bonne date :</p>
-<div id="fillContainer"></div>
+  <!-- Paragraphe à trous — rempli d'inputs -->
+  <p style="line-height:1.6;color:#e6eefc;">
+    La montée des tensions en Europe commence avec l'annexion de l'Autriche en 
+    <input id="t0" class="fill-input small" placeholder="date">. Peu après, en 
+    <input id="t1" class="fill-input small" placeholder="date">, a lieu la conférence de Munich et l'annexion des Sudètes. En 
+    <input id="t2" class="fill-input small" placeholder="date"> l'Allemagne annexe la Bohême-Moravie. Le conflit éclate véritablement le 
+    <input id="t3" class="fill-input small" placeholder="date"> avec l'invasion de la Pologne ; deux jours plus tard, le 
+    <input id="t4" class="fill-input small" placeholder="date"> la France et le Royaume-Uni déclarent la guerre.
+    <input id="t5" class="fill-input small" placeholder="date"> marque le début de la période qu'on appelle la « drôle de guerre » sur le front Ouest. 
+    Le futur conflit s'accélère : le 
+    <input id="t6" class="fill-input small" placeholder="date"> l'Allemagne envahit le Danemark et la Norvège, puis le 
+    <input id="t7" class="fill-input small" placeholder="date"> commence la campagne de France qui s'achève par l'armistice le 
+    <input id="t8" class="fill-input small" placeholder="date">. Entre juillet et octobre de la même année se déroule la 
+    <input id="t9" class="fill-input small" placeholder="date"> contre le Royaume-Uni.
+  </p>
 
-<div style="margin-top:12px">
-  <button class="btn" onclick="checkFill()">Vérifier</button>
-  <button class="btn" onclick="createFill()">Réinitialiser / Générer</button>
-  <button class="btn" onclick="autoFillAnswers()">Afficher toutes les réponses</button>
+  <p style="line-height:1.6;color:#e6eefc;">
+    En Méditerranée, l'Italie envahit la Grèce le 
+    <input id="t10" class="fill-input small" placeholder="date">. À l'Est, l'Allemagne lance l'opération Barbarossa le 
+    <input id="t11" class="fill-input small" placeholder="date"> ; au même moment (action meurtrière des Einsatzgruppen) s'étend la répression de 
+    <input id="t12" class="fill-input small" placeholder="date">. Dans le Pacifique, l'attaque de Pearl Harbor a lieu le 
+    <input id="t13" class="fill-input small" placeholder="date"> et les États-Unis entrent officiellement en guerre le 
+    <input id="t14" class="fill-input small" placeholder="date">.
+  </p>
+
+  <p style="line-height:1.6;color:#e6eefc;">
+    En 1942, le tournant dans le Pacifique est la victoire américaine à Midway du 
+    <input id="t15" class="fill-input small" placeholder="date"> au 
+    <input id="t16" class="fill-input small" placeholder="date"> se déroule la bataille de Stalingrad, et entre octobre et novembre 1942 a lieu la bataille d'
+    <input id="t17" class="fill-input small" placeholder="date">. Le même mois se produit le débarquement anglo-américain en Afrique du Nord le 
+    <input id="t18" class="fill-input small" placeholder="date">.
+  </p>
+
+  <p style="line-height:1.6;color:#e6eefc;">
+    La conférence de Téhéran entre les Alliés a lieu du 
+    <input id="t19" class="fill-input small" placeholder="date">. En 1944, l'offensive soviétique massive Opération Bagration commence le 
+    <input id="t20" class="fill-input small" placeholder="date"> tandis que l'insurrection de Varsovie débute le 
+    <input id="t21" class="fill-input small" placeholder="date"> et dure jusqu'au 
+    <input id="t22" class="fill-input small" placeholder="date">. Les Alliés débarquent en Normandie le 
+    <input id="t23" class="fill-input small" placeholder="date"> (Overlord) puis en Provence le 
+    <input id="t24" class="fill-input small" placeholder="date">. La libération de Paris intervient le 
+    <input id="t25" class="fill-input small" placeholder="date">, suivie de la libération de Metz le 
+    <input id="t26" class="fill-input small" placeholder="date"> et de Strasbourg le 
+    <input id="t27" class="fill-input small" placeholder="date">.
+  </p>
+
+  <p style="line-height:1.6;color:#e6eefc;">
+    La dernière grande offensive allemande à l'Ouest est la bataille des Ardennes, du 
+    <input id="t28" class="fill-input small" placeholder="date"> au 
+    <input id="t29" class="fill-input small" placeholder="date">. À l'Est, le camp d'Auschwitz est libéré le 
+    <input id="t30" class="fill-input small" placeholder="date">. La bataille finale pour Berlin a lieu du 
+    <input id="t31" class="fill-input small" placeholder="date">, Hitler se suicide le 
+    <input id="t32" class="fill-input small" placeholder="date"> et l'Allemagne capitule le 
+    <input id="t33" class="fill-input small" placeholder="date">.
+  </p>
+
+  <p style="line-height:1.6;color:#e6eefc;">
+    Dans le Pacifique, les États-Unis larguent la bombe atomique sur Hiroshima le 
+    <input id="t34" class="fill-input small" placeholder="date">, puis sur Nagasaki le 
+    <input id="t35" class="fill-input small" placeholder="date"> ; le Japon capitule le 
+    <input id="t36" class="fill-input small" placeholder="date">, marquant la fin de la Seconde Guerre mondiale.
+  </p>
+
+  <div class="controls">
+    <button class="btn" onclick="checkParagraph()">Vérifier</button>
+    <button class="btn" onclick="autoFillParagraph()">Afficher réponses</button>
+    <button class="btn" onclick="clearParagraph()">Effacer</button>
+    <div id="fillResult"></div>
+  </div>
 </div>
 
-<div id="fillResult"></div>
-<div class="note">Astuce : tu peux copier-coller la date depuis la liste si tu veux vérifier rapidement (mais l'objectif est de la mémoriser !).</div>
-
 <script>
-// ===== Liste complète des événements / dates =====
-const eventsDates = [
-  {event:"Anschluss (Autriche)", date:"13 mars 1938"},
-  {event:"Conférence de Munich / Sudètes", date:"30 septembre 1938"},
-  {event:"Annexion de la Bohême-Moravie", date:"15 mars 1939"},
-  {event:"Invasion de la Pologne", date:"1er septembre 1939"},
-  {event:"France & Royaume-Uni déclarent la guerre", date:"3 septembre 1939"},
-  {event:"Drôle de guerre", date:"3 septembre 1939 - 10 mai 1940"},
-  {event:"Invasion du Danemark et de la Norvège", date:"9 avril 1940"},
-  {event:"Offensive allemande à l'Ouest (campagne de France)", date:"10 mai - 22 juin 1940"},
-  {event:"Armistice franco-allemand", date:"22 juin 1940"},
-  {event:"Bataille d'Angleterre (Blitz)", date:"Juillet - octobre 1940"},
-  {event:"L'Italie envahit la Grèce", date:"28 octobre 1940"},
-  {event:"Opération Barbarossa (invasion URSS)", date:"22 juin 1941"},
-  {event:"Actions des Einsatzgruppen", date:"Juin 1941 - 1944"},
-  {event:"Attaque de Pearl Harbor", date:"7 décembre 1941"},
-  {event:"Entrée en guerre des États-Unis", date:"8 décembre 1941"},
-  {event:"Bataille de Midway", date:"4 - 7 juin 1942"},
-  {event:"Bataille de Stalingrad", date:"23 août 1942 - 2 février 1943"},
-  {event:"Bataille d'El-Alamein", date:"23 octobre - 3 novembre 1942"},
-  {event:"Débarquement en Afrique du Nord (Opération Torch)", date:"8 novembre 1942"},
-  {event:"Conférence de Téhéran", date:"28 novembre - 1er décembre 1943"},
-  {event:"Opération Bagration", date:"22 juin - 19 août 1944"},
-  {event:"Insurrection de Varsovie", date:"1er août - 2 octobre 1944"},
-  {event:"Débarquement de Normandie (Overlord)", date:"6 juin 1944"},
-  {event:"Débarquement de Provence", date:"15 août 1944"},
-  {event:"Libération de Paris", date:"25 août 1944"},
-  {event:"Libération de Metz", date:"22 novembre 1944"},
-  {event:"Libération de Strasbourg", date:"23 novembre 1944"},
-  {event:"Bataille des Ardennes", date:"16 décembre 1944 - 25 janvier 1945"},
-  {event:"Libération du camp d'Auschwitz", date:"27 janvier 1945"},
-  {event:"Bataille de Berlin", date:"16 avril - 2 mai 1945"},
-  {event:"Suicide d'Hitler", date:"30 avril 1945"},
-  {event:"Capitulation de l'Allemagne (fin guerre en Europe)", date:"8 mai 1945"},
-  {event:"Bombardement d'Hiroshima", date:"6 août 1945"},
-  {event:"Bombardement de Nagasaki", date:"9 août 1945"},
-  {event:"Capitulation du Japon (fin Seconde Guerre mondiale)", date:"2 septembre 1945"}
+/* ===== Données (dates correctes) =====
+   Note : j'utilise un tableau 'answers' indexé de 0 à 36 correspondant aux inputs t0..t36 */
+const answers = [
+  "13 mars 1938",                    // t0 Anschluss
+  "30 septembre 1938",               // t1 Munich / Sudètes
+  "15 mars 1939",                    // t2 Bohême-Moravie
+  "1er septembre 1939",              // t3 Invasion Pologne
+  "3 septembre 1939",                // t4 Déclaration guerre France/UK
+  "3 septembre 1939 - 10 mai 1940",  // t5 Drôle de guerre
+  "9 avril 1940",                    // t6 Danemark/Norvège
+  "10 mai - 22 juin 1940",           // t7 Campagne de France
+  "22 juin 1940",                    // t8 Armistice
+  "Juillet - octobre 1940",          // t9 Bataille d'Angleterre
+  "28 octobre 1940",                 // t10 Italie envahit la Grèce
+  "22 juin 1941",                    // t11 Barbarossa
+  "Juin 1941 - 1944",                // t12 Einsatzgruppen
+  "7 décembre 1941",                 // t13 Pearl Harbor
+  "8 décembre 1941",                 // t14 Entrée USA en guerre
+  "4 - 7 juin 1942",                 // t15 Midway
+  "23 août 1942 - 2 février 1943",   // t16 Stalingrad
+  "23 octobre - 3 novembre 1942",    // t17 El-Alamein
+  "8 novembre 1942",                 // t18 Opération Torch
+  "28 novembre - 1er décembre 1943", // t19 Téhéran
+  "22 juin - 19 août 1944",          // t20 Bagration start
+  "1er août 1944",                   // t21 Insurrection Varsovie start
+  "2 octobre 1944",                  // t22 Insurrection Varsovie end
+  "6 juin 1944",                     // t23 Débarquement Normandie
+  "15 août 1944",                    // t24 Débarquement Provence
+  "25 août 1944",                    // t25 Libération Paris
+  "22 novembre 1944",                // t26 Libération Metz
+  "23 novembre 1944",                // t27 Libération Strasbourg
+  "16 décembre 1944",                // t28 Ardennes start
+  "25 janvier 1945",                 // t29 Ardennes end
+  "27 janvier 1945",                 // t30 Libération Auschwitz
+  "16 avril - 2 mai 1945",           // t31 Bataille de Berlin
+  "30 avril 1945",                   // t32 Suicide Hitler
+  "8 mai 1945",                      // t33 Capitulation Allemagne
+  "6 août 1945",                     // t34 Hiroshima
+  "9 août 1945",                     // t35 Nagasaki
+  "2 septembre 1945"                 // t36 Capitulation Japon
 ];
 
-// ===== Helpers =====
-function normalize(str){
-  return String(str||'').trim().toLowerCase().replace(/\s+/g,' ').replace(/\s*-\s*/g,'-');
+/* Normalisation simple pour comparer sans casse et sans espaces multiples */
+function normalize(s){ return String(s||'').trim().toLowerCase().replace(/\s+/g,' ').replace(/\s*-\s*/g,'-'); }
+
+/* Vérifie chaque input et affiche ✓ ou ✖ avec la réponse correcte */
+function checkParagraph(){
+  let score = 0;
+  for(let i=0;i<answers.length;i++){
+    const el = document.getElementById('t'+i);
+    const outId = 'out_p_' + i;
+    // créer un span résultat si pas déjà
+    let existing = document.getElementById(outId);
+    if(!existing){
+      existing = document.createElement('span');
+      existing.id = outId;
+      existing.className = 'answer muted';
+      el.parentNode.insertBefore(existing, el.nextSibling);
+    }
+    const user = el.value || '';
+    if(normalize(user) === normalize(answers[i])){
+      existing.textContent = ' ✔';
+      existing.className = 'answer ok';
+      score++;
+    } else if(user.trim()===''){
+      existing.textContent = ' —';
+      existing.className = 'answer muted';
+    } else {
+      existing.textContent = ` ✖ (rép: ${answers[i]})`;
+      existing.className = 'answer ko';
+    }
+  }
+  document.getElementById('fillResult').textContent = `Score : ${score} / ${answers.length}`;
 }
 
-// Crée le formulaire de texte à trous
-function createFill(){
-  const container = document.getElementById('fillContainer');
-  if(!container) return;
-  container.innerHTML = '';
-  eventsDates.forEach((ed, idx) => {
-    const div = document.createElement('div');
-    div.innerHTML = `${idx+1}) <strong>${ed.event}</strong> : <input type="text" id="fill${idx}" class="fill-input" placeholder="Date"> <span id="fill_out_${idx}" class="answer"></span>`;
-    container.appendChild(div);
-  });
+/* Remplit automatiquement les bonnes réponses (utile pour corriger) */
+function autoFillParagraph(){
+  for(let i=0;i<answers.length;i++){
+    const el = document.getElementById('t'+i);
+    if(el) el.value = answers[i];
+  }
+  checkParagraph();
+}
+
+/* Efface tous les champs et les résultats */
+function clearParagraph(){
+  for(let i=0;i<answers.length;i++){
+    const el = document.getElementById('t'+i);
+    if(el) el.value = '';
+    const out = document.getElementById('out_p_' + i);
+    if(out) out.textContent = '';
+  }
   document.getElementById('fillResult').textContent = '';
 }
 
-// Vérifie toutes les réponses
-function checkFill(){
-  let ok = 0;
-  eventsDates.forEach((ed, idx) => {
-    const input = document.getElementById(`fill${idx}`);
-    const out = document.getElementById(`fill_out_${idx}`);
-    if(!input || !out) return;
-    if(normalize(input.value) === normalize(ed.date)){
-      ok++; out.textContent = '✔'; out.className = 'answer ok';
-    } else if(input.value.trim()===''){
-      out.textContent = '—'; out.className = 'answer muted';
-    } else {
-      out.textContent = `✖ (rép: ${ed.date})`; out.className = 'answer ko';
-    }
-  });
-  document.getElementById('fillResult').textContent = `Score : ${ok}/${eventsDates.length}`;
-}
-
-// Remplit automatiquement toutes les réponses (utile pour correction)
-function autoFillAnswers(){
-  eventsDates.forEach((ed, idx) => {
-    const input = document.getElementById(`fill${idx}`);
-    if(input) input.value = ed.date;
-  });
-  checkFill();
-}
-
-// Initialisation automatique si la page charge
+/* Init si la page charge */
 window.addEventListener('load', ()=>{
-  createFill();
+  // nothing else to init — inputs already in DOM
 });
 </script>
+
 </body>
 </html>
