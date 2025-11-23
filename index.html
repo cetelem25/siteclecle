@@ -4,8 +4,6 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Révisions 2GM – Toutes les dates importantes</title>
-<!-- Ajout de l'image chronologique -->
-<img src="images/chronologie.png" alt="Chronologie de la Seconde Guerre mondiale" class="chrono">
 <style>
 body{margin:0;background:#0f1320;color:#e9ecf1;font:15px system-ui}
 section{background:#151a2b;border-radius:12px;padding:14px 16px;margin:10px 0}
@@ -23,11 +21,16 @@ label{display:block;margin:4px 0}
 .match-box{background:#1c2235;padding:8px 12px;border-radius:8px;cursor:pointer;border:1px solid #232a40;user-select:none}
 .match-box.selected{border:2px solid #4caf50}
 .fill-input{width:150px;padding:4px 6px;border-radius:6px;border:1px solid #232a40;background:#0f1420;color:#e9ecf1;margin-right:4px;margin-bottom:4px}
+img.chrono{display:block;margin:12px auto;max-width:95%;border-radius:8px;border:1px solid #232a40}
+video{display:block;margin:12px auto;max-width:95%;border-radius:8px;border:1px solid #232a40}
 </style>
 </head>
 <body>
 
 <h1 style="padding:16px">📘 Révisions 2GM – Toutes les dates importantes</h1>
+
+<!-- Frise chronologique -->
+<img src="images/chronologie.png" alt="Chronologie de la Seconde Guerre mondiale" class="chrono">
 
 <section id="cours">
 <h2>🔵 Cours complet – Dates importantes</h2>
@@ -105,7 +108,19 @@ label{display:block;margin:4px 0}
 <div id="simResult"></div>
 </section>
 
+<!-- Nouvelle section Vidéos -->
+<section id="videos">
+<h2>🎬 Vidéos importantes</h2>
+<p>Voici une vidéo pour réviser la Seconde Guerre mondiale :</p>
+<video controls>
+  <source src="videos/videocours.mp4" type="video/mp4">
+  Votre navigateur ne supporte pas la lecture de vidéos.
+</video>
+<p>Légende : Vidéo de cours sur la Seconde Guerre mondiale</p>
+</section>
+
 <script>
+// ===== Script JS existant =====
 const eventsDates=[
 {event:"Anschluss (Autriche)", date:"Mars 1938"},
 {event:"Conférence de Munich / Sudètes", date:"Septembre 1938"},
@@ -190,14 +205,7 @@ function createMatch(){
   });
   dates.forEach(d=>{
     const div=document.createElement('div'); div.className='match-box'; div.textContent=d;
-    div.onclick=()=>{
-      if(selectedEvent){
-        const correct=eventsDates.find(m=>m.event===selectedEvent).date;
-        if(d===correct){ div.style.background='#4caf50'; div.style.borderColor='#4caf50'; }
-        else{ div.style.background='#f44336'; div.style.borderColor='#f44336'; }
-        selectedEvent=null; document.querySelectorAll('.match-box').forEach(b=>b.classList.remove('selected'));
-      }
-    };
+    div.onclick=()=>{if(selectedEvent){const correct=eventsDates.find(m=>m.event===selectedEvent).date;if(d===correct){div.style.background='#4caf50';div.style.borderColor='#4caf50';}else{div.style.background='#f44336';div.style.borderColor='#f44336';}selectedEvent=null; document.querySelectorAll('.match-box').forEach(b=>b.classList.remove('selected'));}};
     container.appendChild(div);
   });
 }
@@ -215,35 +223,21 @@ function createFill(){
 }
 createFill();
 
-function normalizeDate(str){
-  return str.trim().toLowerCase().replace(/\s+/g,' ').replace(/\s*-\s*/g,'-');
-}
+function normalizeDate(str){ return str.trim().toLowerCase().replace(/\s+/g,' ').replace(/\s*-\s*/g,'-'); }
 
 function checkFill(){
   let ok=0;
   eventsDates.forEach((ed,idx)=>{
     const input=document.getElementById(`fill${idx}`);
     const out=document.getElementById(`fill_out_${idx}`);
-    if(normalizeDate(input.value)===normalizeDate(ed.date)){
-      ok++;
-      out.textContent='✔';
-      out.className='answer ok';
-    } else {
-      out.textContent=`✖ (rép: ${ed.date})`;
-      out.className='answer ko';
-    }
+    if(normalizeDate(input.value)===normalizeDate(ed.date)){ok++;out.textContent='✔';out.className='answer ok';}
+    else{out.textContent=`✖ (rép: ${ed.date})`;out.className='answer ko';}
   });
   document.getElementById('fillResult').textContent=`Score : ${ok}/${eventsDates.length}`;
 }
 
 // ===== SIMULATION =====
-function startSimulation(){
-  generateDatesQCM();
-  createMatch();
-  createFill();
-  alert("Simulation lancée : fais le QCM, relie les réponses et complète le texte à trous, puis vérifie chaque partie pour obtenir ton score !");
-  document.getElementById('simResult').textContent='Mode interro actif : complète tout et vérifie chaque section.';
-}
+function startSimulation(){ generateDatesQCM(); createMatch(); createFill(); alert("Simulation lancée : fais le QCM, relie les réponses et complète le texte à trous, puis vérifie chaque partie pour obtenir ton score !"); document.getElementById('simResult').textContent='Mode interro actif : complète tout et vérifie chaque section.';}
 </script>
 
 </body>
