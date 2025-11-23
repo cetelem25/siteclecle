@@ -1,0 +1,248 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Révisions 2GM – Toutes les dates importantes</title>
+<style>
+body{margin:0;background:#0f1320;color:#e9ecf1;font:15px system-ui}
+section{background:#151a2b;border-radius:12px;padding:14px 16px;margin:10px 0}
+h2{font-size:18px;margin:0 0 10px}
+.badge{padding:2px 8px;border-radius:999px;background:#1f2540;color:#c7d1ff;margin-left:6px;font-size:12px}
+.btn{padding:8px 12px;background:#1b2140;border:1px solid #232a40;border-radius:8px;color:#fff;cursor:pointer;transition:0.2s;margin:2px 0}
+.btn:hover{filter:brightness(1.15)}
+fieldset.q{border:1px solid #232a40;padding:10px 12px;margin-bottom:12px;background:#1c2235;border-radius:8px}
+fieldset.q legend{font-weight:bold}
+label{display:block;margin:4px 0}
+.answer.ok{color:#4caf50;font-weight:700;margin-left:6px}
+.answer.ko{color:#f44336;font-weight:700;margin-left:6px}
+.answer.muted{color:#ccc;margin-left:6px}
+.match-container{display:flex;flex-wrap:wrap;gap:10px;margin-bottom:12px}
+.match-box{background:#1c2235;padding:8px 12px;border-radius:8px;cursor:pointer;border:1px solid #232a40;user-select:none}
+.match-box.selected{border:2px solid #4caf50}
+.fill-input{width:150px;padding:4px 6px;border-radius:6px;border:1px solid #232a40;background:#0f1420;color:#e9ecf1;margin-right:4px;margin-bottom:4px}
+</style>
+</head>
+<body>
+
+<h1 style="padding:16px">📘 Révisions 2GM – Toutes les dates importantes</h1>
+
+<section id="cours">
+<h2>🔵 Cours complet – Dates importantes</h2>
+<ul>
+<li>Mars 1938 : Anschluss (Autriche)</li>
+<li>Septembre 1938 : Conférence de Munich / Sudètes</li>
+<li>Mars 1939 : Annexion de la Bohême-Moravie</li>
+<li>1er septembre 1939 : Invasion de la Pologne</li>
+<li>3 septembre 1939 : France et Royaume-Uni déclarent la guerre</li>
+<li>9 avril 1940 : Invasion du Danemark et de la Norvège</li>
+<li>10 mai 1940 : Début de la campagne de France</li>
+<li>22 juin 1940 : Armistice franco-allemand</li>
+<li>Juillet - Octobre 1940 : Bataille d'Angleterre</li>
+<li>28 octobre 1940 : Italie envahit la Grèce</li>
+<li>22 juin 1941 : Opération Barbarossa (invasion URSS)</li>
+<li>4 juin 1942 - 7 juin 1942 : Bataille de Midway</li>
+<li>23 août 1942 - 2 février 1943 : Bataille de Stalingrad</li>
+<li>23 octobre - 3 novembre 1942 : Bataille d'El-Alamein</li>
+<li>8 novembre 1942 : Débarquement anglo-américain Afrique du Nord</li>
+<li>7 décembre 1941 : Pearl Harbor</li>
+<li>8 décembre 1941 : Entrée en guerre des USA contre Japon et ses alliés</li>
+<li>22 juin 1944 - 19 août 1944 : Opération Bagration</li>
+<li>1er août 1944 - 2 octobre 1944 : Insurrection de Varsovie</li>
+<li>15 août 1944 : Débarquement de Provence</li>
+<li>6 juin 1944 : Débarquement de Normandie (Overlord)</li>
+<li>25 août 1944 : Libération de Paris</li>
+<li>22 novembre 1944 : Libération de Metz</li>
+<li>23 novembre 1944 : Libération de Strasbourg</li>
+<li>16 décembre 1944 - 25 janvier 1945 : Bataille des Ardennes</li>
+<li>27 janvier 1945 : Libération du camp d’Auschwitz</li>
+<li>16 avril - 2 mai 1945 : Bataille de Berlin</li>
+<li>30 avril 1945 : Suicide d’Hitler</li>
+<li>8 mai 1945 : Capitulation de l’Allemagne</li>
+<li>6 août 1945 : Bombardement atomique d’Hiroshima</li>
+<li>9 août 1945 : Bombardement atomique de Nagasaki</li>
+<li>2 septembre 1945 : Capitulation du Japon (fin Seconde Guerre mondiale)</li>
+<li>1941 - 1944 : Actions des Einsatzgruppen</li>
+<li>28 novembre 1943 - 1er décembre 1943 : Conférence de Téhéran</li>
+</ul>
+</section>
+
+<section id="qcmDates">
+<h2>📝 QCM – Dates importantes</h2>
+<div>
+  <label>Nombre de questions :
+    <select id="numDatesQ">
+      <option>5</option><option>8</option><option>10</option><option selected>30</option>
+    </select>
+  </label>
+  <button class="btn" onclick="generateDatesQCM()">Générer QCM</button>
+  <button class="btn" onclick="resetDatesQCM()">Réinitialiser</button>
+</div>
+<form id="qcmDatesForm"></form>
+<div id="qcmDatesScore"></div>
+</section>
+
+<section id="matchSection">
+<h2>🔗 Relier événements et dates</h2>
+<div id="matchContainer" class="match-container"></div>
+<button class="btn" onclick="checkMatches()">Vérifier</button>
+<div id="matchResult"></div>
+</section>
+
+<section id="fillSection">
+<h2>✏️ Texte à trous</h2>
+<p>Complète chaque événement avec la bonne date :</p>
+<div id="fillContainer"></div>
+<button class="btn" onclick="checkFill()">Vérifier</button>
+<div id="fillResult"></div>
+</section>
+
+<section id="simulation">
+<h2>🎯 Simulation d'interro</h2>
+<button class="btn" onclick="startSimulation()">Lancer l’interro</button>
+<div id="simResult"></div>
+</section>
+
+<script>
+const eventsDates=[
+{event:"Anschluss (Autriche)", date:"Mars 1938"},
+{event:"Conférence de Munich / Sudètes", date:"Septembre 1938"},
+{event:"Annexion de la Bohême-Moravie", date:"Mars 1939"},
+{event:"Invasion de la Pologne", date:"1er septembre 1939"},
+{event:"France et Royaume-Uni déclarent la guerre", date:"3 septembre 1939"},
+{event:"Invasion du Danemark et de la Norvège", date:"9 avril 1940"},
+{event:"Début de la campagne de France", date:"10 mai 1940"},
+{event:"Armistice franco-allemand", date:"22 juin 1940"},
+{event:"Bataille d'Angleterre", date:"Juillet-Octobre 1940"},
+{event:"Italie envahit la Grèce", date:"28 octobre 1940"},
+{event:"Opération Barbarossa", date:"22 juin 1941"},
+{event:"Pearl Harbor", date:"7 décembre 1941"},
+{event:"Entrée en guerre des USA", date:"8 décembre 1941"},
+{event:"Bataille de Midway", date:"4-7 juin 1942"},
+{event:"Bataille de Stalingrad", date:"23 août 1942 - 2 février 1943"},
+{event:"Bataille d'El-Alamein", date:"23 octobre - 3 novembre 1942"},
+{event:"Débarquement anglo-américain Afrique du Nord", date:"8 novembre 1942"},
+{event:"Opération Bagration", date:"22 juin - 19 août 1944"},
+{event:"Insurrection de Varsovie", date:"1er août - 2 octobre 1944"},
+{event:"Débarquement de Provence", date:"15 août 1944"},
+{event:"Débarquement de Normandie", date:"6 juin 1944"},
+{event:"Libération de Paris", date:"25 août 1944"},
+{event:"Libération de Metz", date:"22 novembre 1944"},
+{event:"Libération de Strasbourg", date:"23 novembre 1944"},
+{event:"Bataille des Ardennes", date:"16 décembre 1944 - 25 janvier 1945"},
+{event:"Libération du camp d’Auschwitz", date:"27 janvier 1945"},
+{event:"Bataille de Berlin", date:"16 avril - 2 mai 1945"},
+{event:"Suicide d’Hitler", date:"30 avril 1945"},
+{event:"Capitulation de l’Allemagne", date:"8 mai 1945"},
+{event:"Bombardement d’Hiroshima", date:"6 août 1945"},
+{event:"Bombardement de Nagasaki", date:"9 août 1945"},
+{event:"Capitulation du Japon", date:"2 septembre 1945"},
+{event:"Actions des Einsatzgruppen", date:"1941-1944"},
+{event:"Conférence de Téhéran", date:"28 novembre - 1er décembre 1943"}
+];
+
+function shuffle(arr){for(let i=arr.length-1;i>0;i--){const j=Math.floor(Math.random()*(i+1));[arr[i],arr[j]]=[arr[j],arr[i]];}return arr;}
+
+// ===== QCM =====
+function generateDatesQCM(){
+  const num=Number(document.getElementById('numDatesQ').value)||30;
+  const sel=shuffle([...eventsDates]).slice(0,Math.min(num,eventsDates.length));
+  const form=document.getElementById('qcmDatesForm'); form.innerHTML='';
+  sel.forEach((item,idx)=>{
+    const choices=shuffle([item.date,...shuffle(eventsDates.filter(e=>e.date!==item.date).map(e=>e.date)).slice(0,2)]);
+    const fs=document.createElement('fieldset'); fs.className='q';
+    fs.innerHTML=`<legend>${idx+1}) Date de : <b>${item.event}</b> ?</legend>`;
+    choices.forEach(c=>fs.innerHTML+=`<label><input type='radio' name='qd_${idx}' value='${c}'> ${c}</label>`);
+    fs.innerHTML+=`<span class='answer' id='qd_out_${idx}'></span>`;
+    fs.dataset.correct=item.date; form.appendChild(fs);
+  });
+  form.innerHTML+=`<button type='button' class='btn' onclick='gradeDatesQCM()'>Corriger le QCM</button>`;
+  document.getElementById('qcmDatesScore').textContent='';
+}
+
+function gradeDatesQCM(){
+  const sets=[...document.querySelectorAll('#qcmDatesForm fieldset')].filter(fs=>fs.dataset.correct);
+  let ok=0;
+  sets.forEach((fs,idx)=>{
+    const chosen=fs.querySelector(`input[name="qd_${idx}"]:checked`);
+    const out=document.getElementById(`qd_out_${idx}`);
+    if(!chosen){out.textContent='—'; out.className='answer muted';}
+    else if(chosen.value.trim()===fs.dataset.correct.trim()){ok++; out.textContent='✔'; out.className='answer ok';}
+    else{out.textContent=`✖ (rép: ${fs.dataset.correct})`; out.className='answer ko';}
+  });
+  document.getElementById('qcmDatesScore').textContent=`Score : ${ok}/${sets.length}`;
+}
+
+function resetDatesQCM(){ document.getElementById('qcmDatesForm').innerHTML=''; document.getElementById('qcmDatesScore').textContent=''; }
+
+// ===== RELIER =====
+let selectedEvent=null;
+function createMatch(){
+  const container=document.getElementById('matchContainer'); container.innerHTML='';
+  const events=shuffle(eventsDates.map(m=>m.event));
+  const dates=shuffle(eventsDates.map(m=>m.date));
+  events.forEach(e=>{
+    const div=document.createElement('div'); div.className='match-box'; div.textContent=e;
+    div.onclick=()=>{selectedEvent=e; document.querySelectorAll('.match-box').forEach(b=>b.classList.remove('selected')); div.classList.add('selected');};
+    container.appendChild(div);
+  });
+  dates.forEach(d=>{
+    const div=document.createElement('div'); div.className='match-box'; div.textContent=d;
+    div.onclick=()=>{
+      if(selectedEvent){
+        const correct=eventsDates.find(m=>m.event===selectedEvent).date;
+        if(d===correct){ div.style.background='#4caf50'; div.style.borderColor='#4caf50'; }
+        else{ div.style.background='#f44336'; div.style.borderColor='#f44336'; }
+        selectedEvent=null; document.querySelectorAll('.match-box').forEach(b=>b.classList.remove('selected'));
+      }
+    };
+    container.appendChild(div);
+  });
+}
+createMatch();
+function checkMatches(){ document.getElementById('matchResult').textContent='Vérifie les couleurs : vert=correct, rouge=incorrect'; }
+
+// ===== TEXTE À TROUS =====
+function createFill(){
+  const container=document.getElementById('fillContainer'); container.innerHTML='';
+  eventsDates.forEach((ed,idx)=>{
+    const div=document.createElement('div');
+    div.innerHTML=`${idx+1}) ${ed.event} : <input type="text" class="fill-input" id="fill${idx}" placeholder="Date"> <span id="fill_out_${idx}" class="answer"></span>`;
+    container.appendChild(div);
+  });
+}
+createFill();
+
+function normalizeDate(str){
+  return str.trim().toLowerCase().replace(/\s+/g,' ').replace(/\s*-\s*/g,'-');
+}
+
+function checkFill(){
+  let ok=0;
+  eventsDates.forEach((ed,idx)=>{
+    const input=document.getElementById(`fill${idx}`);
+    const out=document.getElementById(`fill_out_${idx}`);
+    if(normalizeDate(input.value)===normalizeDate(ed.date)){
+      ok++;
+      out.textContent='✔';
+      out.className='answer ok';
+    } else {
+      out.textContent=`✖ (rép: ${ed.date})`;
+      out.className='answer ko';
+    }
+  });
+  document.getElementById('fillResult').textContent=`Score : ${ok}/${eventsDates.length}`;
+}
+
+// ===== SIMULATION =====
+function startSimulation(){
+  generateDatesQCM();
+  createMatch();
+  createFill();
+  alert("Simulation lancée : fais le QCM, relie les réponses et complète le texte à trous, puis vérifie chaque partie pour obtenir ton score !");
+  document.getElementById('simResult').textContent='Mode interro actif : complète tout et vérifie chaque section.';
+}
+</script>
+
+</body>
+</html>
