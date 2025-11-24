@@ -213,6 +213,11 @@ window.addEventListener('load', ()=>{
   // nothing else to init — inputs already in DOM
 });
 </script>
-
+<!-- ===== Tracking des visiteurs ===== -->
+<script>
+fetch("/api/track.php")
+    .then(res => res.json())
+    .then(data => console.log("Visiteur tracé :", data));
+</script>
 </body>
 </html>
