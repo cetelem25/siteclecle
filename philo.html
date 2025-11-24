@@ -1,356 +1,178 @@
 <!DOCTYPE HTML>
-<html>
-	<head>
-		<title>Philosophie - Révision cleia</title>
-		<link rel="icon" type="image/png" href="https://cetelem25.github.io/siteclecle/images/logo.png">
-		<meta charset="utf-8" />
-		<meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
-		<link rel="stylesheet" href="assets/css/main.css" />
-		<noscript><link rel="stylesheet" href="assets/css/noscript.css" /></noscript>
-	</head>
-	<body class="is-preload">
-		<!-- Wrapper -->
-			<div id="wrapper">
+<html lang="fr">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Philosophie - Révision cleia</title>
+    <link rel="icon" type="image/png" href="https://cetelem25.github.io/siteclecle/images/logo.png">
+    <style>
+        body {margin:0;font-family:Arial, sans-serif;background:#f5f5f5;color:#333;line-height:1.6;padding:16px;}
+        h1,h2,h3{color:#222;}
+        a {color:#007acc;text-decoration:none;}
+        a:hover {text-decoration:underline;}
+        header, footer{padding:10px 0;text-align:center;background:#fff;border-radius:8px;margin-bottom:16px;box-shadow:0 2px 6px rgba(0,0,0,0.1);}
+        nav ul {list-style:none;padding:0;display:flex;justify-content:center;gap:12px;margin:8px 0;}
+        nav ul li {display:inline;}
+        section{background:#fff;padding:16px;border-radius:12px;margin-bottom:20px;box-shadow:0 2px 10px rgba(0,0,0,0.05);}
+        img{max-width:100%;border-radius:8px;}
+        fieldset.q{border:1px solid #ddd;padding:12px 16px;margin-bottom:16px;border-radius:8px;background:#fafafa;}
+        fieldset.q legend{font-weight:bold;color:#222;}
+        label{display:block;margin:8px 0;cursor:pointer;font-size:14px;}
+        .btn{padding:8px 16px;border:none;border-radius:8px;background:#007acc;color:#fff;cursor:pointer;font-weight:bold;transition:0.2s;margin-top:10px;}
+        .btn:hover{background:#005f99;}
+        .answer.ok{color:#28a745;font-weight:700;margin-left:6px;}
+        .answer.ko{color:#dc3545;font-weight:700;margin-left:6px;}
+        .answer.muted{color:#888;margin-left:6px;}
+        textarea{width:100%;padding:10px;border-radius:8px;border:1px solid #ccc;font-size:14px;margin-top:8px;}
+        iframe{width:100%;height:600px;border:none;margin-top:12px;border-radius:8px;}
+    </style>
+</head>
+<body>
 
-				<!-- Header -->
-					<header id="header">
-						<div class="inner">
+<header>
+    <h1>Révision cleia - Philosophie</h1>
+    <nav>
+        <ul>
+            <li><a href="index.html">Accueil</a></li>
+            <li><a href="qcm.html">QCM</a></li>
+            <li><a href="fill.html">Texte à trous</a></li>
+            <li><a href="match.html">Relier</a></li>
+            <li><a href="videos.html">Vidéos</a></li>
+            <li><a href="anglais.html">Anglais</a></li>
+        </ul>
+    </nav>
+</header>
 
-							<!-- Logo -->
-								<a href="index.html" class="logo">
-									<span class="symbol"><img src="images/logo.png" alt="" /></span><span class="title">Révision cleia - Philosophie</span>
-								</a>
+<div id="main">
 
-							<!-- Nav -->
-								<nav>
-									<ul>
-										<li><a href="#menu">Menu</a></li>
-									</ul>
-								</nav>
+    <!-- Fiches détaillées -->
+    <section>
+        <h2>📘 Fiches détaillées par notion</h2>
+        <article>
+            <h3>La conscience</h3>
+            <p><strong>Définition :</strong> Capacité qu'a un sujet à se représenter ses états mentaux et à se penser comme sujet.</p>
+            <p><strong>Auteurs-clés :</strong> Descartes, Hegel, Sartre.</p>
+        </article>
+        <article>
+            <h3>La liberté</h3>
+            <p><strong>Définition :</strong> Capacité d'un agent à choisir et agir selon sa volonté.</p>
+            <p><strong>Auteurs-clés :</strong> Kant, Rousseau, Sartre.</p>
+        </article>
+        <article>
+            <h3>La vérité</h3>
+            <p><strong>Définition :</strong> Relation entre une proposition et la réalité.</p>
+            <p><strong>Auteurs-clés :</strong> Aristote, Nietzsche, Peirce, William James.</p>
+        </article>
+        <article>
+            <h3>La raison</h3>
+            <p><strong>Définition :</strong> Faculté de connaître, argumenter et déduire.</p>
+            <p><strong>Auteurs-clés :</strong> Descartes, Hume, Kant.</p>
+        </article>
+        <article>
+            <h3>Le travail</h3>
+            <p><strong>Définition :</strong> Activité humaine qui produit biens et services.</p>
+            <p><strong>Auteurs-clés :</strong> Marx, Hannah Arendt.</p>
+        </article>
+    </section>
 
-						</div>
-					</header>
+    <!-- QCM -->
+    <section id="qcmPhilo">
+        <h2>📝 QCM — teste-toi !</h2>
+        <form id="formQCMPhilo"></form>
+        <div id="scoreQCMPhilo" style="margin-top:12px;font-weight:bold"></div>
+    </section>
 
-				<!-- Menu -->
-					<nav id="menu">
-						<h2>Menu</h2>
-						<ul>
-							<li><a href="index.html">Home</a></li>
-							<li><a href="qcm.html">QCM</a></li>
-							<li><a href="fill.html">Texte à trous</a></li>
-							<li><a href="match.html">Relier</a></li>
-							<li><a href="videos.html">Vidéos</a></li>
-							<li><a href="anglais.html">Anglais</a></li>
-						</ul>
-					</nav>
+    <!-- PDF bacphilo -->
+    <section>
+        <h2>📄 PDF de révision</h2>
+        <p>Consulte ton PDF de révision ci-dessous :</p>
+        <iframe src="pdf/bacphilo.pdf"></iframe>
+    </section>
 
-				<!-- Main -->
-					<div id="main">
-						<div class="inner">
-							<h1>Philosophie — Révisions complètes</h1>
-							<span class="image main"><img src="images/philo.png" alt="philosophie" /></span>
-
-							<!-- SECTION 1 : Fiches détaillées -->
-							<section id="fiches">
-								<h2>📘 Fiches détaillées par notion</h2>
-
-								<article>
-									<h3>La conscience</h3>
-									<p><strong>Définition :</strong> Capacité qu'a un sujet à se représenter ses états mentaux et à se penser comme sujet.</p>
-									<p><strong>Auteurs-clés :</strong> Descartes (connaissance de soi — cogito), Hegel (conscience et reconnaissance), Sartre (conscience réflexive).</p>
-									<p><strong>Idées à retenir :</strong> distinction conscience / inconscient ; conscience comme vigilance ou comme self-reflection ; problème de l'introspection.</p>
-								</article>
-
-								<article>
-									<h3>La liberté</h3>
-									<p><strong>Définition :</strong> Capacité d'un agent à choisir et à agir selon sa volonté, et question de l'autonomie face aux déterminismes.</p>
-									<p><strong>Auteurs-clés :</strong> Kant (liberté morale et autonomie), Rousseau (volonté générale), Sartre (liberté radicale).</p>
-									<p><strong>Problèmes :</strong> liberté vs déterminisme ; liberté comme pouvoir ou comme responsabilité.</p>
-								</article>
-
-								<article>
-									<h3>La vérité</h3>
-									<p><strong>Définition :</strong> Relation entre une proposition et la réalité — question des critères et des formes de vérité (correspondance, cohérence, pragmatisme).</p>
-									<p><strong>Auteurs-clés :</strong> Aristote (correspondance), Nietzsche (critique des vérités établies), Peirce et William James (pragmatisme).</p>
-									<p><strong>Remarques :</strong> vérité scientifique vs vérité morale ou esthétique.</p>
-								</article>
-
-								<article>
-									<h3>La raison</h3>
-									<p><strong>Définition :</strong> Faculté de connaître, d'argumenter et de déduire ; sens du rationnel et de la logique.</p>
-									<p><strong>Auteurs-clés :</strong> Descartes (rationalisme), Hume (empirisme critique), Kant (critique de la raison pure).</p>
-									<p><strong>Problèmes :</strong> limites de la raison, raison vs passion, raison pure vs raison pratique.</p>
-								</article>
-
-								<article>
-									<h3>La justice</h3>
-									<p><strong>Définition :</strong> Principe d'équité et de droit qui régit la distribution et la réparation au sein d'une société.</p>
-									<p><strong>Auteurs-clés :</strong> Platon (justice comme harmonie), Rawls (justice distributive), Aristote (justice commutative et distributive).</p>
-								</article>
-
-								<article>
-									<h3>Le travail</h3>
-									<p><strong>Définition :</strong> Activité humaine de transformation qui produit des biens/services et structure l'expérience humaine.</p>
-									<p><strong>Auteurs-clés :</strong> Marx (aliénation), Hannah Arendt (travail, œuvre, action).</p>
-								</article>
-
-								<article>
-									<h3>L'art</h3>
-									<p><strong>Définition :</strong> Activité et produit de sensibilité visant à exprimer ou provoquer une expérience esthétique.</p>
-									<p><strong>Auteurs-clés :</strong> Hume, Kant (jugement esthétique), Nietzsche (art et sens de la vie).</p>
-								</article>
-
-								<article>
-									<h3>Le langage</h3>
-									<p><strong>Définition :</strong> Système de signes et de règles permettant la communication ; structure la pensée selon certains auteurs.</p>
-									<p><strong>Auteurs-clés :</strong> Wittgenstein (langage et sens), Saussure (sémiologie), Austin (actes de langage).</p>
-								</article>
-							</section>
-
-							<!-- SECTION 2 : QCM -->
-							<section id="qcm">
-								<h2>📝 QCM — teste-toi (réponses en bas)</h2>
-								<ol>
-									<li>La conscience est :
-										<ol type="a">
-											<li>Un simple réflexe biologique</li>
-											<li>La capacité à se représenter ses propres états</li>
-											<li>Un mythe</li>
-										</ol>
-									</li>
-									<li>Kant distingue la raison :
-										<ol type="a">
-											<li>Pure et pratique</li>
-											<li>Sociale et individuelle</li>
-											<li>Scientifique et poétique</li>
-										</ol>
-									</li>
-									<li>La théorie de la vérité de correspondance affirme que :
-										<ol type="a">
-											<li>La vérité dépend de l'utilité</li>
-											<li>Une proposition est vraie si elle correspond à la réalité</li>
-											<li>La vérité est une illusion</li>
-										</ol>
-									</li>
-									<li>Pour Marx, le travail :
-										<ol type="a">
-											<li>Est uniquement valorisant</li>
-											<li>Peut aliéner le travailleur</li>
-											<li>Est moralement neutre</li>
-										</ol>
-									</li>
-									<li>La liberté selon Sartre est :
-										<ol type="a">
-											<li>Illusoire</li>
-											<li>Contrainte sociale uniquement</li>
-											<li>Radicale et source de responsabilité</li>
-										</ol>
-									</li>
-									<li>La fonction du langage selon Wittgenstein :
-										<ol type="a">
-											<li>Ne sert qu'à exprimer les émotions</li>
-											<li>Est un outil pour l'action et la signification</li>
-											<li>Est identique pour tous les humains</li>
-										</ol>
-									</li>
-									<li>La raison a ses limites selon :
-										<ol type="a">
-											<li>Hume</li>
-											<li>Descartes</li>
-											<li>Rawls</li>
-										</ol>
-									</li>
-									<li>L'allégorie de la caverne est de :
-										<ol type="a">
-											<li>Aristote</li>
-											<li>Platon</li>
-											<li>Nietzsche</li>
-										</ol>
-									</li>
-									<li>La justice distributive s'intéresse à :
-										<ol type="a">
-											<li>La distribution des biens et des ressources</li>
-											<li>La réparation des torts uniquement</li>
-											<li>Le langage juridique seulement</li>
-										</ol>
-									</li>
-								</ol>
-
-								<details>
-									<summary>Réponses et corrigés</summary>
-									<ol>
-										<li>b</li>
-										<li>a</li>
-										<li>b</li>
-										<li>b</li>
-										<li)c</li>
-										<li>b</li>
-										<li>a</li>
-										<li>b</li>
-										<li>a</li>
-									</ol>
-									<p>Chaque réponse est suivie d'une brève explication dans les notes si nécessaire.</p>
-								</details>
-							</section>
-
-							<!-- SECTION 3 : Exercices (dissertations + plans) -->
-							<section id="exercices">
-								<h2>🧾 Exercices : sujets de dissertation & plans</h2>
-								<article>
-									<h3>Sujet 1 — « La liberté consiste-t-elle à faire n'importe quoi ? »</h3>
-									<p><strong>Problématique :</strong> La liberté est-elle seulement un pouvoir d'action sans limite, ou implique-t-elle aussi des normes et responsabilités ?</p>
-									<p><strong>Plan suggéré :</strong></p>
-									<ol>
-										<li>Thèse : la liberté comme pouvoir — l'individu doit pouvoir agir (exemples libertés civiles).</li>
-										<li>Antithèse : limites morales et sociales — liberté et responsabilité (Kant, Rousseau).</li>
-										<li>Synthèse : conception dialectique — liberté comme autonomie réfléchie (liberté + règle pour la liberté de tous).</li>
-									</ol>
-								</article>
-
-								<article>
-									<h3>Sujet 2 — « La raison peut-elle tout expliquer ? »</h3>
-									<p><strong>Plan suggéré :</strong></p>
-									<ol>
-										<li>La puissance explicative de la raison (sciences, mathématiques).</li>
-										<li>Les limites : émotions, valeurs, esthétique, foi, inconscient.</li>
-										<li>Vers une complémentarité : raison critique + autres formes de savoir.</li>
-									</ol>
-								</article>
-
-								<article>
-									<h3>Sujet 3 — « Le travail aliène-t-il l'homme ? »</h3>
-									<p><strong>Plan suggéré :</strong></p>
-									<ol>
-										<li>La critique marxiste : travail et aliénation.</li>
-										<li>Les réponses : travail comme réalisation et dignité (Arendt, approches contemporaines).</li>
-										<li>Nuancer : dépend de l'organisation sociale et du sens du travail.</li>
-									</ol>
-								</article>
-
-								<article>
-									<h3>Sujet 4 — « Peut-on atteindre la vérité en histoire comme en science ? »</h3>
-									<p><strong>Plan suggéré :</strong></p>
-									<ol>
-										<li>La vérité scientifique : modèles, lois et expérimentations.</li>
-										<li>La vérité historique : interprétation, sources, perspective.</li>
-										<li>Convergences et différences : rigueur méthodologique partagée mais finalités et critères distincts.</li>
-									</ol>
-								</article>
-							</section>
-
-							<!-- SECTION 4 : Explication de texte (exemple complet) -->
-							<section id="explication">
-								<h2>🔍 Explication de texte — Exemple (Descartes, cogito)</h2>
-								<p><strong>Texte (court extrait) :</strong> « Je pense, donc je suis. »</p>
-								<p><strong>1) Lecture du texte :</strong> Descartes pose la certitude du sujet pensant comme fondement indubitable de la connaissance.</p>
-								<p><strong>2) Problématique :</strong> En quoi ce principe sert-il de fondement à la recherche de la vérité ?</p>
-								<p><strong>3) Analyse :</strong></p>
-								<ul>
-									<li><strong>Contexte</strong> : méthode du doute méthodique pour trouver une vérité certaine.</li>
-									<li><strong>Signification</strong> : la pensée est la preuve de l'existence du sujet même en cas d'illusion.</li>
-									<li><strong>Conséquences</strong> : fondation de la connaissance sur la conscience réflexive.</li>
-								</ul>
-								<p><strong>4) Problèmes et objections :</strong> la confiance sur le cogito comme fondement absolu, la question du corps et de l'autre.</p>
-								<p><strong>5) Conclusion :</strong> Le cogito montre une méthode rigoureuse mais soulève d'autres questions (existence du monde, autres consciences).</p>
-							</section>
-
-							<!-- SECTION 5 : Zone pour ajouter ton sujet de bac -->
-							<section id="ajouterSujet">
-								<h2>🖊️ Ajoute ton sujet de bac ici</h2>
-								<p>Colle ton sujet ci-dessous ; je te fournirai : une problématique, un plan détaillé (trois parties) et une introduction + conclusion rédigées.</p>
-								<form id="sujetForm">
-									<textarea id="sujetInput" name="sujet" rows="4" cols="60" placeholder="Tape ou colle ton sujet ici..."></textarea>
-									<br/>
-									<button type="button" onclick="handleSujet()">Envoyer le sujet</button>
-								</form>
-								<div id="resultatSujet"></div>
-								<script>
-									function handleSujet(){
-										const s = document.getElementById('sujetInput').value.trim();
-										const out = document.getElementById('resultatSujet');
-										if(!s){ out.innerHTML = '<p style="color:red">Aucun sujet fourni.</p>'; return; }
-										// Simple client-side placeholder. Pour obtenir un vrai corrigé, reviens sur la page ou demande ici.
-										out.innerHTML = '<h3>Sujet reçu :</h3><p>'+escapeHtml(s)+'</p><p>Je te prépare la problématique, le plan et l\'introduction — demande-moi ici (par exemple : "Corrige/Donne un plan pour ce sujet").</p>';
-									}
-									function escapeHtml(text){ return text.replace(/[&<>"']/g, function(m){ return {'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot',"'":'&#39'}[m]; }); }
-								</script>
-							</section>
-
-							<!-- Ressources & footer images -->
-							<section id="ressources">
-								<h2>🔎 Ressources recommandées</h2>
-								<ul>
-									<li>Oeuvres : Platon, Descartes, Kant, Marx, Nietzsche, Sartre.</li>
-									<li>Sites : philosophiques, fiches et annales.</li>
-									<li>Conseil : apprends 6-8 citations et 8 auteurs-clés pour mobiliser en copie.</li>
-								</ul>
-								<span class="image main"><img src="images/1.png" alt="schema" /></span>
-								<span class="image main"><img src="images/2.png" alt="schema2" /></span>
-							</section>
-
-						</div>
-
-<h2>Sujet de bac – Session 2024</h2>
-
-<h3>📌 Sujet 1 — « Faut-il se battre pour la vérité ? »</h3>
-<h4>Problématique possible :</h4>
-<p>Si la vérité semble essentielle pour vivre et agir, faut-il pourtant engager un combat pour elle ? Le combat pour la vérité est-il une nécessité morale ou un risque d’intolérance ?</p>
-<h4>Plan détaillé :</h4>
-<ol>
-<li><strong>Oui, il faut se battre pour la vérité</strong><br>La vérité permet d’éviter l’erreur, l’illusion et les manipulations. Descartes : recherche méthodique. Spinoza : la vérité libère.</li>
-<li><strong>Mais le combat pour la vérité peut devenir dangereux</strong><br>Imposer sa vérité mène au fanatisme. Nietzsche : critique de la volonté de vérité. Tocqueville : conformisme.</li>
-<li><strong>Se battre pour la vérité : une exigence critique</strong><br>Kant : usage public de la raison. Habermas : discussion rationnelle.</li>
-</ol>
-
-<h3>📌 Sujet 2 — « Doit-on se libérer de soi-même ? »</h3>
-<h4>Problématique possible :</h4>
-<p>Si la liberté est la capacité d’être soi-même, pourquoi faudrait-il se libérer de soi ? Faut-il dépasser certaines parties de soi (désirs, passions, habitudes) pour devenir réellement libre ?</p>
-<h4>Plan détaillé :</h4>
-<ol>
-<li><strong>On doit se libérer de ce qui, en soi-même, nous enchaîne</strong><br>Freud : inconscient. Épictète : passions = esclavage.</li>
-<li><strong>Mais se libérer de soi, n’est-ce pas se perdre ?</strong><br>Rousseau : moi authentique. Sartre : projet libre.</li>
-<li><strong>Se libérer de soi = se transformer</strong><br>Nietzsche : devenir ce que l’on est. Bouddhisme : dépasser l’ego.</li>
-</ol>
-
-<h3>📌 Sujet 3 — Explication du texte d’Alain</h3>
-<h4>Thèse du texte :</h4>
-<p>L’être humain parle avant de penser ; la pensée naît du langage. La pauvreté du langage conduit à l’absence de pensée claire.</p>
-<h4>Idées principales :</h4>
-<ul>
-<li>La langue est un outil pour penser.</li>
-<li>Langage pauvre = pensée pauvre.</li>
-<li>Bavardage = parole sans maîtrise.</li>
-<li>La pensée apparaît lorsqu’on cherche le sens de nos propres mots.</li>
-<li>« Penser, c’est parler à soi ».</li>
-</ul>
-
-<h4>Enjeux philosophiques :</h4>
-<ul>
-<li>Langage et pensée (Humboldt, Merleau-Ponty).</li>
-<li>Maîtrise du langage = liberté.</li>
-<li>Dérives du langage = déraison.</li>
-</ul>
+    <!-- Entraînement + correction -->
+    <section>
+        <h2>🖊️ Entraînement au bac de philo</h2>
+        <textarea id="reponseEleve" rows="10" placeholder="Rédige ta dissertation ou explication ici..."></textarea>
+        <br/>
+        <button class="btn" onclick="validerSujet()">Valider</button>
+        <div id="demandeCorrection" style="display:none; margin-top:10px;">
+            <p>Veux-tu voir la correction ?</p>
+            <button class="btn" onclick="voirCorrection()">Oui</button>
+            <button class="btn" onclick="refuserCorrection()">Non</button>
+        </div>
+        <div id="correction" style="display:none; margin-top:10px;">
+            <h3>Correction :</h3>
+            <iframe src="pdf/correction.pdf"></iframe>
+        </div>
+    </section>
 
 </div>
-</div>
 
-				<!-- Footer -->
-					<footer id="footer">
-						<div class="inner">
-							<ul class="copyright">
-								<li>&copy; Crée par <strong>emeric</strong> avec le <strong>❤️</strong></li>
-							</ul>
-						</div>
-					</footer>
+<footer>
+    <p>&copy; Crée par <strong>emeric</strong> avec ❤️</p>
+</footer>
 
-			</div>
+<script>
+    // QCM
+    const qcmPhilo = [
+      {q:"La conscience est :", choices:["Un simple réflexe biologique","La capacité à se représenter ses propres états","Un mythe"], correct:1},
+      {q:"Kant distingue la raison :", choices:["Pure et pratique","Sociale et individuelle","Scientifique et poétique"], correct:0},
+      {q:"La théorie de la vérité de correspondance affirme que :", choices:["La vérité dépend de l'utilité","Une proposition est vraie si elle correspond à la réalité","La vérité est une illusion"], correct:1},
+      {q:"Pour Marx, le travail :", choices:["Est uniquement valorisant","Peut aliéner le travailleur","Est moralement neutre"], correct:1},
+      {q:"La liberté selon Sartre est :", choices:["Illusoire","Contrainte sociale uniquement","Radicale et source de responsabilité"], correct:2}
+    ];
 
-		<!-- Scripts -->
-			<script src="assets/js/jquery.min.js"></script>
-			<script src="assets/js/browser.min.js"></script>
-			<script src="assets/js/breakpoints.min.js"></script>
-			<script src="assets/js/util.js"></script>
-			<script src="assets/js/main.js"></script>
+    function generateQCMPhilo(){
+      const form = document.getElementById('formQCMPhilo');
+      form.innerHTML = '';
+      qcmPhilo.forEach((item, idx)=>{
+        const fs = document.createElement('fieldset');
+        fs.className = 'q';
+        fs.dataset.correct = item.choices[item.correct];
+        fs.innerHTML = `<legend>${idx+1}) ${item.q}</legend>`;
+        item.choices.forEach(c=>{
+          const safe = c.replace(/'/g,"\\'");
+          fs.innerHTML += `<label><input type="radio" name="q_${idx}" value='${safe}'> ${c}</label>`;
+        });
+        fs.innerHTML += `<span class='answer' id='out_${idx}'></span>`;
+        form.appendChild(fs);
+      });
+      form.innerHTML += `<button type="button" class="btn" onclick="gradeQCMPhilo()">Corriger le QCM</button>`;
+      document.getElementById('scoreQCMPhilo').textContent = '';
+    }
 
-	</body>
+    function gradeQCMPhilo(){
+      const sets = [...document.querySelectorAll('#formQCMPhilo fieldset')];
+      let ok = 0;
+      sets.forEach((fs, idx)=>{
+        const chosen = fs.querySelector(`input[name="q_${idx}"]:checked`);
+        const out = document.getElementById(`out_${idx}`);
+        if(!chosen){ out.textContent='—'; out.className='answer muted'; }
+        else if(chosen.value.trim() === fs.dataset.correct.trim()){ ok++; out.textContent='✔'; out.className='answer ok'; }
+        else{ out.textContent=`✖ (rép: ${fs.dataset.correct})`; out.className='answer ko'; }
+      });
+      document.getElementById('scoreQCMPhilo').textContent = `Score : ${ok}/${sets.length}`;
+    }
+
+    window.addEventListener('load', generateQCMPhilo);
+
+    // Entraînement
+    function validerSujet(){
+        if(!document.getElementById('reponseEleve').value.trim()){
+            alert("Écris d'abord ta réponse !");
+            return;
+        }
+        document.getElementById('demandeCorrection').style.display="block";
+    }
+    function voirCorrection(){
+        document.getElementById('correction').style.display="block";
+        document.getElementById('demandeCorrection').style.display="none";
+    }
+    function refuserCorrection(){
+        alert("Tu peux relire ta réponse et réfléchir encore avant de voir la correction !");
+        document.getElementById('demandeCorrection').style.display="none";
+    }
+</script>
+
+</body>
 </html>

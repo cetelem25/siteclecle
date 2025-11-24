@@ -255,22 +255,3 @@ function checkEnglishFill(){
   });
   document.getElementById("englishFillResult").innerHTML=`<h3>✔️ ${correct} / ${inputs.length} correct</h3>`;
 }
-
-// ====================
-// ===== TRACK VISITEUR =====
-function trackVisitor(){
-  fetch('track.php')
-    .then(res=>res.json())
-    .then(data=>console.log('Visiteur tracé :',data))
-    .catch(err=>console.warn('Erreur tracking :',err));
-}
-
-// ====================
-// ===== INITIALISATION =====
-window.addEventListener('load',()=>{
-  if(document.getElementById('qcmDatesForm')) generateDatesQCM();
-  if(document.getElementById('fillContainer')) createFill();
-  if(document.getElementById('matchContainer')) createMatch();
-  if(document.getElementById('englishFillContainer')) createEnglishFill();
-  trackVisitor();
-});
