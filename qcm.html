@@ -92,10 +92,7 @@ const eventsDates = [
 ];
 
 // ===== Utilitaires =====
-function shuffle(arr){
-  for(let i=arr.length-1;i>0;i--){const j=Math.floor(Math.random()*(i+1));[arr[i],arr[j]]=[arr[j],arr[i]];}
-  return arr;
-}
+function shuffle(arr){for(let i=arr.length-1;i>0;i--){const j=Math.floor(Math.random()*(i+1));[arr[i],arr[j]]=[arr[j],arr[i]];}return arr;}
 
 // ===== QCM =====
 function generateDatesQCM(){
@@ -104,16 +101,11 @@ function generateDatesQCM(){
   const form = document.getElementById('qcmDatesForm'); if(!form) return;
   form.innerHTML = '';
   pool.forEach((item, idx) => {
-    // construire trois choix : la bonne date + 2 distracteurs aléatoires
     const otherDates = shuffle(eventsDates.filter(e => e.date !== item.date).map(e => e.date)).slice(0,2);
     const choices = shuffle([item.date, ...otherDates]);
     const fs = document.createElement('fieldset'); fs.className = 'q';
     fs.innerHTML = `<legend>${idx+1}) Date de : <b>${item.event}</b> ?</legend>`;
-    choices.forEach(c => {
-      // échappe les quotes dans la value
-      const safe = c.replace(/'/g, "\\'");
-      fs.innerHTML += `<label><input type="radio" name="qd_${idx}" value='${safe}'> ${c}</label>`;
-    });
+    choices.forEach(c => { const safe = c.replace(/'/g, "\\'"); fs.innerHTML += `<label><input type="radio" name="qd_${idx}" value='${safe}'> ${c}</label>`; });
     fs.innerHTML += `<span class='answer' id='qd_out_${idx}'></span>`;
     fs.dataset.correct = item.date;
     form.appendChild(fs);
@@ -140,10 +132,14 @@ function resetDatesQCM(){
   const score = document.getElementById('qcmDatesScore'); if(score) score.textContent = '';
 }
 
-// Générer automatiquement si on charge la page
-window.addEventListener('load', ()=>{
-  if(document.getElementById('qcmDatesForm')) generateDatesQCM();
-});
+window.addEventListener('load', ()=>{ if(document.getElementById('qcmDatesForm')) generateDatesQCM(); });
+</script>
+
+<!-- ===== Tracking des visiteurs ===== -->
+<script>
+fetch("/api/track.php")
+    .then(res => res.json())
+    .then(data => console.log("Visiteur tracé :", data));
 </script>
 
 </body>
