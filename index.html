@@ -1,215 +1,278 @@
 <!DOCTYPE HTML>
-<html>
-	<head>
-		<title>Révision cleia</title>
-		<link rel="icon" type="image/png" href="https://cetelem25.github.io/siteclecle/images/logo.png">
-		<meta charset="utf-8" />
-		<meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
-		<link rel="stylesheet" href="assets/css/main.css" />
-		<noscript><link rel="stylesheet" href="assets/css/noscript.css" /></noscript>
-	</head>
-	<body class="is-preload">
-		<!-- Wrapper -->
-			<div id="wrapper">
+<html lang="fr">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
+    <title>Révision cleia</title>
+    <link rel="icon" type="image/png" href="https://cetelem25.github.io/siteclecle/images/logo.png">
 
-				<!-- Header -->
-					<header id="header">
-						<div class="inner">
+    <link rel="stylesheet" href="assets/css/main.css" />
+    <noscript><link rel="stylesheet" href="assets/css/noscript.css" /></noscript>
 
-							<!-- Logo -->
-								<a href="index.html" class="logo">
-									<span class="symbol"><img src="images/logo.png" alt="" /></span><span class="title">Révision cleia</span>
-								</a>
+    <style>
+        html, body, #wrapper, header, footer, #menu, .tiles article .content {
+            transition: background-color 250ms ease, color 250ms ease, border-color 250ms ease;
+        }
+        body.dark {
+            background-color: #0f1112;
+            color: #e6eef6;
+        }
+        body.dark a { color: #8fc6ff; }
+        body.dark header, body.dark footer, body.dark #menu {
+            background: #151516 !important;
+        }
+        body.dark .tiles article .content {
+            background: rgba(255,255,255,0.04);
+        }
 
-							<!-- Nav -->
-								<nav>
-									<ul>
-										<li><a href="#menu">Menu</a></li>
-									</ul>
-								</nav>
+        .theme-toggle {
+            position: fixed;
+            top: 14px;
+            right: 14px;
+            display: flex;
+            gap: 10px;
+            z-index: 9999;
+        }
+        .theme-btn {
+            width: 44px;
+            height: 44px;
+            border-radius: 50%;
+            border: none;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 20px;
+            cursor: pointer;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.15);
+            transition: transform 120ms ease, opacity 120ms ease;
+        }
+        .theme-btn:active { transform: scale(0.96); }
+        .theme-btn[aria-pressed="true"] {
+            outline: 3px solid rgba(127, 175, 255, 0.25);
+        }
 
-						</div>
-					</header>
+        #btnMoon {
+            background: #222;
+            color: #fff;
+        }
+        #btnSun {
+            background: #ffd86b;
+            color: #000;
+        }
+        body.dark #btnMoon { background: #3a3a3a; color: #fff; }
+        body.dark #btnSun { background: #ffd86b; color: #000; }
 
-				<!-- Menu -->
-					<nav id="menu">
-						<h2>Menu</h2>
-						<ul>
-							<li><a href="index.html">Home</a></li>
-							<li><a href="qcm.html">QCM</a></li>
-							<li><a href="fill.html">Texte à trous</a></li>
-							<li><a href="match.html">Relier</a></li>
-							<li><a href="videos.html">Vidéos</a></li>
-							<li><a href="anglais.html">Anglais</a></li>
-							<li><a href="philo.html">Philosophie</a></li>
-							<li><a href="histoire.html">Histoire</a></li>
-						</ul>
-					</nav>
+        @media (max-width: 520px) {
+            .theme-toggle { right: 10px; top: 10px; gap: 8px; }
+            .theme-btn { width: 40px; height: 40px; font-size: 18px; }
+        }
+    </style>
+</head>
+<body class="is-preload">
+    <div class="theme-toggle" aria-hidden="false">
+        <button id="btnMoon" class="theme-btn" title="Activer le mode sombre (lune)" aria-pressed="false" aria-label="Activer le mode sombre">🌙</button>
+        <button id="btnSun" class="theme-btn" title="Activer le mode clair (soleil)" aria-pressed="false" aria-label="Activer le mode clair">☀️</button>
+    </div>
 
-				<!-- Main -->
-					<div id="main">
-						<div class="inner">
-							<header>
-								<h1>Révision pour cleia, le bac, gratuit avec emeric<br /></h1>
-							</header>
-							<section class="tiles">
-								<article class="style1">
-									<span class="image">
-										<img src="images/pic01.jpg" alt="" />
-									</span>
-									<a href="qcm.html">
-										<h2>QCM</h2>
-										<div class="content">
-											<p>Plein de QCM pour les cours mais que histoire</p>
-										</div>
-									</a>
-								</article>
-								<article class="style2">
-									<span class="image">
-										<img src="images/pic02.jpg" alt="" />
-									</span>
-									<a href="fill.html">
-										<h2>Relier</h2>
-										<div class="content">
-											<p>mets les bonnes dates aux bon évènements.</p>
-										</div>
-									</a>
-								</article>
-								<article class="style3">
-									<span class="image">
-										<img src="images/pic03.jpg" alt="" />
-									</span>
-									<a href="match.html">
-										<h2>Texte à trou</h2>
-										<div class="content">
-											<p>Texte à trou pour tes différents exercices</p>
-										</div>
-									</a>
-								</article>
-								<article class="style1">
-									<span class="image">
-										<img src="images/pic20.jpg" alt="" />
-									</span>
-									<a href="date.html">
-										<h2>Date</h2>
-										<div class="content">
-											<p>📌 Cours rapide – Dates importantes</p>
-										</div>
-									</a>
-								</article>
-								<article class="style4">
-									<span class="image">
-										<img src="images/pic04.jpg" alt="" />
-									</span>
-									<a href="videos.html">
-										<h2>Videos</h2>
-										<div class="content">
-											<p>Videos de soutiens pour les cours</p>
-										</div>
-									</a>
-								</article>
-								<article class="style5">
-									<span class="image">
-										<img src="images/pic05.jpg" alt="" />
-									</span>
-									<a href="anglais.html">
-										<h2>Anglais</h2>
-										<div class="content">
-											<p>Work of the english country</p>
-										</div>
-									</a>
-								</article>
-								<article class="style6">
-									<span class="image">
-										<img src="images/pic06.jpg" alt="" />
-									</span>
-									<a href="histoire.html">
-										<h2>Histoire</h2>
-										<div class="content">
-											<p>Cours de histoire de -2000 à 2030</p>
-										</div>
-									</a>
-								</article>
-								<article class="style2">
-									<span class="image">
-										<img src="images/pic07.jpg" alt="" />
-									</span>
-									<a href="fr.html">
-										<h2>Français</h2>
-										<div class="content">
-											<p>Cours de Françis</p>
-										</div>
-									</a>
-								</article>
-								<article class="style3">
-									<span class="image">
-										<img src="images/pic08.jpg" alt="" />
-									</span>
-									<a href="geographie.html">
-										<h2>Géographie</h2>
-										<div class="content">
-										<p>Cours de Geographie</p>
-										</div>
-								</a>
-							</article>
-							<article class="style1">
-								<span class="image">
-									<img src="images/pic09.jpg" alt="" />
-								</span>
-								<a href="math.html">
-									<h2>Mathématique</h2>
-									<div class="content">
-										<p>Cours de mathématiques Texte et video de yvan monka.</p>
-									</div>
-								</a>
-							</article>
-							<article class="style5">
-								<span class="image">
-									<img src="images/pic10.jpg" alt="" />
-								</span>
-								<a href="svt.html">
-									<h2>SVT</h2>
-									<div class="content">
-										<p>cours de Sciences vie de la terre.</p>
-									</div>
-								</a>
-							</article>
-							<article class="style6">
-								<span class="image">
-									<img src="images/pic11.jpg" alt="" />
-								</span>
-								<a href="philo.html">
-									<h2>Philo</h2>
-									<div class="content">
-											<p>Cours de Philo.</p>
-										</div>
-									</a>
-								
-									</a>
-								</article>
-							</section>
-						</div>
-					</div>
+    <div id="wrapper">
 
-				<!-- Footer -->
-					<footer id="footer">
-						<div class="inner">
-							<ul class="copyright">
-								<li>&copy; Crée par <strong>emeric</strong> avec le <strong>❤️</strong></li>
-							</ul>
-						</div>
-					</footer>
+        <header id="header">
+            <div class="inner">
 
-			</div>
+                <a href="index.html" class="logo">
+                    <span class="symbol"><img src="images/logo.png" alt="" /></span><span class="title">Révision cleia</span>
+                </a>
 
-		<!-- Scripts -->
-			<script src="assets/js/jquery.min.js"></script>
-			<script src="assets/js/browser.min.js"></script>
-			<script src="assets/js/breakpoints.min.js"></script>
-			<script src="assets/js/util.js"></script>
-			<script src="assets/js/main.js"></script>
+                <nav>
+                    <ul>
+                        <li><a href="#menu">Menu</a></li>
+                    </ul>
+                </nav>
 
-	</body>
+            </div>
+        </header>
 
+        <nav id="menu">
+            <h2>Menu</h2>
+            <ul>
+                <li><a href="index.html">Home</a></li>
+                <li><a href="qcm.html">QCM</a></li>
+                <li><a href="fill.html">Texte à trous</a></li>
+                <li><a href="match.html">Relier</a></li>
+                <li><a href="videos.html">Vidéos</a></li>
+                <li><a href="anglais.html">Anglais</a></li>
+                <li><a href="philo.html">Philosophie</a></li>
+                <li><a href="histoire.html">Histoire</a></li>
+            </ul>
+        </nav>
+
+        <div id="main">
+            <div class="inner">
+                <header>
+                    <h1>Révision pour cleia, le bac, gratuit avec emeric<br /></h1>
+                </header>
+                <section class="tiles">
+                    <article class="style1">
+                        <span class="image"><img src="images/pic01.jpg" alt="" /></span>
+                        <a href="qcm.html">
+                            <h2>QCM</h2>
+                            <div class="content"><p>Plein de QCM pour les cours mais que histoire</p></div>
+                        </a>
+                    </article>
+                    <article class="style2">
+                        <span class="image"><img src="images/pic02.jpg" alt="" /></span>
+                        <a href="fill.html">
+                            <h2>Relier</h2>
+                            <div class="content"><p>mets les bonnes dates aux bon évènements.</p></div>
+                        </a>
+                    </article>
+                    <article class="style3">
+                        <span class="image"><img src="images/pic03.jpg" alt="" /></span>
+                        <a href="match.html">
+                            <h2>Texte à trou</h2>
+                            <div class="content"><p>Texte à trou pour tes différents exercices</p></div>
+                        </a>
+                    </article>
+                    <article class="style1">
+                        <span class="image"><img src="images/pic20.jpg" alt="" /></span>
+                        <a href="date.html">
+                            <h2>Date</h2>
+                            <div class="content"><p>📌 Cours rapide – Dates importantes</p></div>
+                        </a>
+                    </article>
+                    <article class="style4">
+                        <span class="image"><img src="images/pic04.jpg" alt="" /></span>
+                        <a href="videos.html">
+                            <h2>Videos</h2>
+                            <div class="content"><p>Videos de soutiens pour les cours</p></div>
+                        </a>
+                    </article>
+                    <article class="style5">
+                        <span class="image"><img src="images/pic05.jpg}"/></span>
+                        <a href="anglais.html">
+                            <h2>Anglais</h2>
+                            <div class="content"><p>Work of the english country</p></div>
+                        </a>
+                    </article>
+                    <article class="style6">
+                        <span class="image"><img src="images/pic06.jpg" alt="" /></span>
+                        <a href="histoire.html">
+                            <h2>Histoire</h2>
+                            <div class="content"><p>Cours de histoire de -2000 à 2030</p></div>
+                        </a>
+                    </article>
+                    <article class="style2">
+                        <span class="image"><img src="images/pic07.jpg" alt="" /></span>
+                        <a href="fr.html">
+                            <h2>Français</h2>
+                            <div class="content"><p>Cours de Françis</p></div>
+                        </a>
+                    </article>
+                    <article class="style3">
+                        <span class="image"><img src="images/pic08.jpg" alt="" /></span>
+                        <a href="geographie.html">
+                            <h2>Géographie</h2>
+                            <div class="content"><p>Cours de Geographie</p></div>
+                        </a>
+                    </article>
+                    <article class="style1">
+                        <span class="image"><img src="images/pic09.jpg" alt="" /></span>
+                        <a href="math.html">
+                            <h2>Mathématique</h2>
+                            <div class="content"><p>Cours de mathématiques Texte et video de yvan monka.</p></div>
+                        </a>
+                    </article>
+                    <article class="style5">
+                        <span class="image"><img src="images/pic10.jpg" alt="" /></span>
+                        <a href="svt.html">
+                            <h2>SVT</h2>
+                            <div class="content"><p>cours de Sciences vie de la terre.</p></div>
+                        </a>
+                    </article>
+                    <article class="style6">
+                        <span class="image"><img src="images/pic11.jpg" alt="" /></span>
+                        <a href="philo.html">
+                            <h2>Philo</h2>
+                            <div class="content"><p>Cours de Philo.</p></div>
+                        </a>
+                    </article>
+                </section>
+            </div>
+        </div>
+
+        <footer id="footer">
+            <div class="inner">
+                <ul class="copyright">
+                    <li>&copy; Crée par <strong>emeric</strong> avec le <strong>❤️</strong></li>
+                </ul>
+            </div>
+        </footer>
+
+    </div>
+
+    <script src="assets/js/jquery.min.js"></script>
+    <script src="assets/js/browser.min.js"></script>
+    <script src="assets/js/breakpoints.min.js"></script>
+    <script src="assets/js/util.js"></script>
+    <script src="assets/js/main.js"></script>
+
+    <script>
+        (function () {
+            const KEY = 'themePreference';
+            const btnMoon = document.getElementById('btnMoon');
+            const btnSun = document.getElementById('btnSun');
+
+            function updateButtons(theme) {
+                const isDark = theme === 'dark';
+                btnMoon.setAttribute('aria-pressed', isDark ? 'true' : 'false');
+                btnSun.setAttribute('aria-pressed', isDark ? 'false' : 'true');
+            }
+
+            function applyTheme(theme) {
+                if (theme === 'dark') document.body.classList.add('dark');
+                else document.body.classList.remove('dark');
+                updateButtons(theme);
+            }
+
+            function detectSystemTheme() {
+                if (window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches) return 'dark';
+                return 'light';
+            }
+
+            function loadPreference() {
+                try {
+                    const v = localStorage.getItem(KEY);
+                    if (v === 'dark' || v === 'light') return v;
+                } catch (e) {}
+                return null;
+            }
+
+            function savePreference(theme) {
+                try {
+                    localStorage.setItem(KEY, theme);
+                } catch (e) {}
+            }
+
+            (function init() {
+                const pref = loadPreference();
+                const theme = pref || detectSystemTheme();
+                applyTheme(theme);
+            })();
+
+            btnMoon.addEventListener('click', function () {
+                applyTheme('dark');
+                savePreference('dark');
+            });
+            btnSun.addEventListener('click', function () {
+                applyTheme('light');
+                savePreference('light');
+            });
+
+            window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').addEventListener('change', e => {
+                const pref = loadPreference();
+                if (!pref) applyTheme(e.matches ? 'dark' : 'light');
+            });
+        })();
+    </script>
+</body>
 </html>
-
