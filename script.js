@@ -154,3 +154,68 @@ window.addEventListener('load', ()=>{
   if(document.getElementById('fillContainer')) createFill();
   if(document.getElementById('matchContainer')) createMatch();
 });
+// =========================
+//  TEXTE À TROUS – ANGLAIS
+// =========================
+
+const englishText = `Blue Origin's New Glenn rocket was launched on November 13, 2025. 
+It carried two satellites into low Earth orbit, and its first stage landed safely at sea. 
+This is important because reusing rockets makes space missions cheaper and more sustainable, which helps the future of space exploration.
+
+The launch also shows how private companies like Blue Origin and SpaceX are pushing space technology forward. 
+Their competition encourages faster progress and can lead to new opportunities, such as better satellite networks, scientific missions, and maybe space tourism.
+
+But reusable rockets still bring challenges. 
+They must be very safe, and their launches can affect the environment. 
+Companies and countries need to work together to make sure future missions are responsible and secure.
+
+Overall, New Glenn's success shows how quickly the space industry is changing and how private companies are now shaping the future of space exploration.`;
+
+// découpes le texte en mots
+function createEnglishFill() {
+    const container = document.getElementById("englishFillContainer");
+    container.innerHTML = "";
+
+    const words = englishText.split(" ");
+
+    // Choisir 12 mots à cacher
+    const indexes = [];
+    while (indexes.length < 12) {
+        let r = Math.floor(Math.random() * words.length);
+        if (!indexes.includes(r) && words[r].length > 3) indexes.push(r);
+    }
+
+    englishFillAnswers = {};
+
+    const newWords = words.map((w, i) => {
+        if (indexes.includes(i)) {
+            const clean = w.replace(/[^a-zA-Z']/g, "");
+            englishFillAnswers[i] = clean;
+            return `<input data-id="${i}" class="fillInput">`;
+        }
+        return w;
+    });
+
+    container.innerHTML = newWords.join(" ");
+}
+
+function checkEnglishFill() {
+    const inputs = document.querySelectorAll(".fillInput");
+    let correct = 0;
+
+    inputs.forEach(input => {
+        const id = input.dataset.id;
+        const answer = englishFillAnswers[id].toLowerCase();
+        const value = input.value.trim().toLowerCase();
+
+        if (value === answer) {
+            input.style.background = "#9f9";
+            correct++;
+        } else {
+            input.style.background = "#f99";
+        }
+    });
+
+    document.getElementById("englishFillResult").innerHTML =
+        `<h3>✔️ ${correct} / ${inputs.length} correct</h3>`;
+}
