@@ -1,32 +1,236 @@
 <!DOCTYPE html>
-<html lang="fr">
+<html lang="en">
 <head>
-<meta charset="utf-8">
-<meta name="viewport" content="width=device-width, initial-scale=1">
-<title>English – Fill in the blanks</title>
-<link rel="stylesheet" href="style.css">
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width,initial-scale=1" />
+<title>English – Fill in the blanks (random hide)</title>
+<style>
+  body{margin:0;background:#0f1320;color:#e9ecf1;font:16px/1.5 system-ui;padding:18px}
+  h1{margin:6px 0 14px}
+  nav a{color:#e9ecf1;margin-right:12px;text-decoration:none;font-weight:bold}
+  .container{background:#151a2b;border-radius:12px;padding:16px;margin-top:12px}
+  .fillInput{display:inline-block;min-width:100px;padding:6px;border-radius:6px;border:1px solid #232a40;background:#0f1420;color:#e9ecf1;margin:0 4px;vertical-align:middle}
+  .fillInput.small{min-width:70px}
+  .btn{padding:8px 12px;background:#1b2140;border:1px solid #232a40;border-radius:8px;color:#fff;cursor:pointer;transition:0.15s;margin:6px 6px 6px 0}
+  .btn:hover{filter:brightness(1.12)}
+  .result{margin-top:12px;font-weight:700}
+  .ok{color:#4caf50}
+  .ko{color:#f44336}
+  img.chrono{display:block;margin:12px auto 18px;max-width:95%;border-radius:8px;border:1px solid #232a40}
+  .hint{color:#cbd5ff;font-size:13px;margin-top:8px}
+  @media (max-width:720px){ .fillInput{min-width:80px} .fillInput.small{min-width:60px} }
+</style>
 </head>
 <body>
 
-<h1>🇬🇧 English – Fill in the blanks</h1>
+<h1>🇬🇧 English – Fill in the blanks (random)</h1>
 
 <nav>
   <a href="index.html">Accueil</a> |
   <a href="qcm.html">QCM</a> |
-  <a href="fill.html">Texte à trous (2GM)</a> |
+  <a href="fill.html">Texte à trous</a> |
   <a href="match.html">Relier</a> |
   <a href="anglais.html">Anglais</a> |
   <a href="videos.html">Vidéos</a>
 </nav>
 
-<p>Remplis le texte en complétant les mots manquants :</p>
+<div class="container">
+  <!-- Image: chemin local de l'upload (si tu veux utiliser images/chronologie.png, remplace ce src) -->
+  <img src="/mnt/data/A_timeline_infographic_titled_%22Frise_chronologique.png" alt="Frise chronologique" class="chrono">
 
-<div id="englishFillContainer"></div>
-<button class="btn" onclick="checkEnglishFill()">Vérifier</button>
-<div id="englishFillResult"></div>
+  <p style="line-height:1.6;color:#e6eefc">
+    Complete the text by filling the missing words/dates in the boxes. Each time you reload the page a different set of words will be hidden.
+  </p>
 
-<script src="script.js"></script>
-<script>createEnglishFill();</script>
+  <!-- text container (JS will populate) -->
+  <div id="textBlock" style="line-height:1.7;color:#e6eefc"></div>
+
+  <div style="margin-top:12px">
+    <button class="btn" id="btnCheck">Vérifier</button>
+    <button class="btn" id="btnShow">Afficher réponses</button>
+    <button class="btn" id="btnClear">Effacer</button>
+    <button class="btn" id="btnNew">Nouveaux mots cachés</button>
+  </div>
+
+  <div id="englishResult" class="result"></div>
+  <div class="hint">Astuce : Recharge la page (F5) ou clique "Nouveaux mots cachés" pour une autre combinaison.</div>
+</div>
+
+<script>
+/* ===== Texte source ===== */
+const sourceText = `Blue Origin's New Glenn rocket was launched on November 13, 2025. It carried two satellites into low Earth orbit, and its first stage landed safely at sea. This is important because reusing rockets makes space missions cheaper and more sustainable, which helps the future of space exploration.
+The launch also shows how private companies like Blue Origin and SpaceX are pushing space technology forward. Their competition encourages faster progress and can lead to new opportunities, such as better satellite networks, scientific missions, and maybe space tourism.
+But, reusable rockets still bring challenges. They must be very safe, and their launches can affect the environment. Companies and countries need to work together to make sure future missions are responsible and secure.
+Overall, New Glenn's success shows how quickly the space industry is changing and how private companies are now shaping the future of space exploration.`;
+
+/* ===== Choix des mots candidats (on cible les mots "significatifs") =====
+   On va stocker une tokenisation en objets {text, clean, type}
+   Then randomly pick N indexes among candidates to hide.
+*/
+function tokenize(text){
+  // split on spaces but keep punctuation attached to token
+  const parts = text.split(/\s+/);
+  return parts.map((p,i)=>({
+    raw: p,
+    index: i,
+    // remove leading/trailing punctuation for comparison
+    clean: p.replace(/^[^a-zA-Z0-9']+|[^a-zA-Z0-9']+$/g,''),
+    // small token length
+    len: p.replace(/[^a-zA-Z0-9']/g,'').length
+  }));
+}
+
+/* choose candidate indexes to hide.
+   rules:
+   - don't hide very short words (len <= 2)
+   - prefer nouns/important words (heuristic: longer words or capitalized or contains digits (dates))
+*/
+function chooseHiddenIndexes(tokens, minHide=5, maxHide=9){
+  const candidates = tokens
+    .map((t,i)=> ({...t, i}))
+    .filter(t=> t.len > 2); // remove a, to, of, in, etc.
+
+  // weight candidates: capitalized, contains digit (dates), length
+  const weighted = candidates.map(t=>{
+    let w = t.len;
+    if(/^[A-Z]/.test(t.clean)) w += 3;
+    if(/\d/.test(t.clean)) w += 5;
+    return {...t, weight: w};
+  });
+
+  // build an array of indexes repeated by weight for random sampling
+  const pool = [];
+  weighted.forEach(wt=>{
+    const copies = Math.min(30, Math.max(1, Math.floor(wt.weight)));
+    for(let k=0;k<copies;k++) pool.push(wt.i);
+  });
+
+  // choose random unique indices
+  const pickCount = Math.floor(Math.random()*(maxHide-minHide+1))+minHide;
+  const chosen = new Set();
+  while(chosen.size < Math.min(pickCount, weighted.length)){
+    const pick = pool[Math.floor(Math.random()*pool.length)];
+    chosen.add(pick);
+  }
+  return Array.from(chosen).sort((a,b)=>a-b);
+}
+
+/* render text with inputs for chosen hidden indexes */
+function renderTextWithBlanks(){
+  const textBlock = document.getElementById('textBlock');
+  const tokens = tokenize(sourceText);
+  const hiddenIndexes = chooseHiddenIndexes(tokens, 6, 10); // default hide 6-10 words
+  // store answers for checking
+  window.englishRandomAnswers = {};
+  // build HTML
+  const htmlParts = tokens.map((t, idx)=>{
+    if(hiddenIndexes.includes(idx) && t.clean !== ''){
+      // create an input with data-index
+      // keep punctuation visible (prefix/suffix)
+      const prefix = t.raw.match(/^[^a-zA-Z0-9']+/) ? t.raw.match(/^[^a-zA-Z0-9']+/)[0] : '';
+      const suffix = t.raw.match(/[^a-zA-Z0-9']+$/) ? t.raw.match(/[^a-zA-Z0-9']+$/)[0] : '';
+      const inputId = `rand_${idx}`;
+      // store expected answer (clean)
+      window.englishRandomAnswers[inputId] = t.clean;
+      return `${prefix}<input id="${inputId}" class="fillInput" placeholder="...">${suffix}`;
+    } else {
+      return t.raw;
+    }
+  });
+
+  // join with spaces (preserve original spacing roughly)
+  textBlock.innerHTML = htmlParts.join(' ');
+  // return number of blanks
+  return Object.keys(window.englishRandomAnswers).length;
+}
+
+/* Normalizer for comparing answers (case-insensitive, strip punctuation, normalize spaces) */
+function normAnswer(s){
+  return String(s||'').trim().toLowerCase().replace(/[.,;:!?]$/,'').replace(/\s+/g,' ');
+}
+
+/* Check function */
+function checkRandomBlanks(){
+  const answers = window.englishRandomAnswers || {};
+  let correct = 0, total = 0;
+  for(const id in answers){
+    total++;
+    const expected = normAnswer(answers[id]);
+    const el = document.getElementById(id);
+    const user = normAnswer(el.value);
+    // allow small variations: for dates, accept containing the digits or month+year
+    let ok = false;
+    if(/\d/.test(expected) && /\d/.test(user)){
+      // both contain digits -> check digits match
+      const expectedDigits = expected.replace(/[^0-9]/g,'');
+      const userDigits = user.replace(/[^0-9]/g,'');
+      if(expectedDigits !== '' && userDigits.includes(expectedDigits)) ok = true;
+    }
+    if(user === expected) ok = true;
+    // also accept if user is substring of expected or vice versa for multiword answers
+    if(!ok && expected.includes(' ') && user !== '') {
+      const exWords = expected.split(' ');
+      ok = exWords.every(w=> user.includes(w) || w.includes(user));
+    }
+    if(ok){
+      el.style.background = '#1b4f1b';
+      el.style.color = '#eaffea';
+      correct++;
+    } else if(user === ''){
+      el.style.background = '';
+      el.style.color = '';
+    } else {
+      el.style.background = '#571111';
+      el.style.color = '#ffdfe0';
+    }
+  }
+  const res = document.getElementById('englishResult');
+  res.innerHTML = `Score: ${correct} / ${total}`;
+}
+
+/* show answers */
+function showRandomAnswers(){
+  const answers = window.englishRandomAnswers || {};
+  for(const id in answers){
+    const el = document.getElementById(id);
+    if(el) el.value = answers[id];
+  }
+  checkRandomBlanks();
+}
+
+/* clear inputs */
+function clearRandomInputs(){
+  const answers = window.englishRandomAnswers || {};
+  for(const id in answers){
+    const el = document.getElementById(id);
+    if(el){ el.value = ''; el.style.background=''; el.style.color=''; }
+  }
+  document.getElementById('englishResult').textContent = '';
+}
+
+/* regenerate different hidden words without reloading */
+function newHiddenSet(){
+  renderAndAttach();
+}
+
+/* helper to render + attach handlers */
+function renderAndAttach(){
+  // render
+  const blanks = renderTextWithBlanks();
+  // attach handlers to buttons
+  document.getElementById('btnCheck').onclick = checkRandomBlanks;
+  document.getElementById('btnShow').onclick = showRandomAnswers;
+  document.getElementById('btnClear').onclick = clearRandomInputs;
+  document.getElementById('btnNew').onclick = newHiddenSet;
+  // clear previous result
+  document.getElementById('englishResult').textContent = `Blanks: ${blanks}`;
+}
+
+/* init on load */
+window.addEventListener('load', ()=>{
+  renderAndAttach();
+});
+</script>
 
 </body>
 </html>
