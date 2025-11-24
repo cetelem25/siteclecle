@@ -66,5 +66,11 @@
     <li>2 septembre 1945 : Capitulation du Japon (fin Seconde Guerre mondiale)</li>
   </ul>
 </section>
+ <!-- ===== Tracking des visiteurs ===== -->
+<script>
+fetch("/api/track.php")
+    .then(res => res.json())
+    .then(data => console.log("Visiteur tracé :", data));
+</script>
 </body>
 </html>
