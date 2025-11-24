@@ -41,7 +41,7 @@ const eventsDates = [
   {event:"Actions des Einsatzgruppen", date:"Juin 1941 - 1944"}
 ];
 
-// ===== Fonction utilitaire pour mélanger un tableau =====
+// ===== Utilitaire : mélanger un tableau =====
 function shuffle(arr){
   for(let i=arr.length-1;i>0;i--){
     const j=Math.floor(Math.random()*(i+1));
@@ -50,9 +50,9 @@ function shuffle(arr){
   return arr;
 }
 
-// ==================
-// ===== QCM =====
-// ==================
+// ====================
+// ===== QCM FR ======
+// ====================
 function generateDatesQCM(){
   const num = Number(document.getElementById('numDatesQ')?.value) || 30;
   const sel = shuffle([...eventsDates]).slice(0, Math.min(num, eventsDates.length));
@@ -88,42 +88,105 @@ function resetDatesQCM(){
   const score=document.getElementById('qcmDatesScore'); if(score) score.textContent='';
 }
 
-// ==================
-// ===== RELIER =====
-// ==================
-let selectedEvent=null;
+// ====================
+// ===== RELIER ======
+// ====================
+let selectedBox = null;
+let pairsState = {};
 function createMatch(){
   const container = document.getElementById('matchContainer'); if(!container) return;
   container.innerHTML='';
-  const events = shuffle(eventsDates.map(m=>m.event));
-  const dates = shuffle(eventsDates.map(m=>m.date));
-  events.forEach(e=>{
-    const div = document.createElement('div'); div.className='match-box'; div.textContent=e;
-    div.onclick=()=>{selectedEvent=e; document.querySelectorAll('.match-box').forEach(b=>b.classList.remove('selected')); div.classList.add('selected');};
+  selectedBox = null;
+  pairsState = {};
+  const events = shuffle([...eventsDates.map(e=>e.event)]);
+  const dates  = shuffle([...eventsDates.map(e=>e.date)]);
+
+  events.forEach(ev=>{
+    const div = document.createElement('div'); div.className='match-box'; div.dataset.type='event'; div.textContent=ev;
+    div.tabIndex = 0;
+    div.onclick = ()=> handleSelect(div, ev, 'event');
+    div.onkeydown = (e)=>{ if(e.key==='Enter') handleSelect(div, ev, 'event'); };
+    container.appendChild(div);
+    pairsState[ev]=null;
+  });
+
+  dates.forEach(dt=>{
+    const div = document.createElement('div'); div.className='match-box'; div.dataset.type='date'; div.textContent=dt;
+    div.tabIndex=0;
+    div.onclick = ()=> handleSelect(div, dt, 'date');
+    div.onkeydown = (e)=>{ if(e.key==='Enter') handleSelect(div, dt, 'date'); };
     container.appendChild(div);
   });
-  dates.forEach(d=>{
-    const div = document.createElement('div'); div.className='match-box'; div.textContent=d;
-    div.onclick=()=>{
-      if(selectedEvent){
-        const correct = eventsDates.find(m=>m.event===selectedEvent).date;
-        if(d===correct){div.style.background='#4caf50';div.style.borderColor='#4caf50';}
-        else{div.style.background='#f44336';div.style.borderColor='#f44336';}
-        selectedEvent=null;
-        document.querySelectorAll('.match-box').forEach(b=>b.classList.remove('selected'));
-      }
-    };
-    container.appendChild(div);
-  });
+
+  document.getElementById('matchResult')?.textContent='';
 }
 
+function handleSelect(element, text, type){
+  if(!selectedBox){
+    selectedBox={type,text,element};
+    document.querySelectorAll('.match-box').forEach(b=>b.classList.remove('selected'));
+    element.classList.add('selected');
+    return;
+  }
+
+  if(selectedBox.element===element){
+    selectedBox=null; element.classList.remove('selected'); return;
+  }
+
+  if(selectedBox.type===type){
+    selectedBox={type,text,element};
+    document.querySelectorAll('.match-box').forEach(b=>b.classList.remove('selected'));
+    element.classList.add('selected');
+    return;
+  }
+
+  let eventText,dateText,eventEl,dateEl;
+  if(selectedBox.type==='event'){ eventText=selectedBox.text; dateText=text; eventEl=selectedBox.element; dateEl=element; }
+  else { eventText=text; dateText=selectedBox.text; eventEl=element; dateEl=selectedBox.element; }
+
+  const correctDate = eventsDates.find(e=>e.event===eventText)?.date;
+  if(normalize(dateText)===normalize(correctDate)){
+    eventEl.classList.add('correct'); dateEl.classList.add('correct');
+    eventEl.onclick=null; dateEl.onclick=null;
+    pairsState[eventText]=dateText;
+  } else{
+    eventEl.classList.add('wrong'); dateEl.classList.add('wrong');
+    setTimeout(()=>{eventEl.classList.remove('wrong'); dateEl.classList.remove('wrong');},900);
+  }
+  selectedBox=null;
+  document.querySelectorAll('.match-box').forEach(b=>b.classList.remove('selected'));
+}
+
+function normalize(s){ return String(s||'').trim().toLowerCase().replace(/\s+/g,' ');}
 function checkMatches(){
-  const res = document.getElementById('matchResult'); if(res) res.textContent='Vérifie les couleurs : vert=correct, rouge=incorrect';
+  const total=Object.keys(pairsState).length;
+  const found=Object.values(pairsState).filter(Boolean).length;
+  const res=document.getElementById('matchResult');
+  if(found===total) res.textContent=`Bravo — toutes les paires sont correctes ! (${found}/${total})`;
+  else res.textContent=`Paires correctes : ${found}/${total} — continue !`;
+}
+function revealAll(){
+  const container=document.getElementById('matchContainer'); if(!container) return;
+  const boxes=[...container.querySelectorAll('.match-box')];
+  const eventBoxes = boxes.filter(b=>b.dataset.type==='event');
+  const dateBoxes  = boxes.filter(b=>b.dataset.type==='date');
+  eventBoxes.forEach(evEl=>{
+    const evText=evEl.textContent;
+    const correctDate=eventsDates.find(e=>e.event===evText)?.date;
+    if(!correctDate) return;
+    const matchDateBox=dateBoxes.find(db=>normalize(db.textContent)===normalize(correctDate));
+    if(matchDateBox){
+      evEl.classList.add('correct'); matchDateBox.classList.add('correct');
+      evEl.onclick=null; matchDateBox.onclick=null;
+      pairsState[evText]=correctDate;
+    }
+  });
+  checkMatches();
 }
 
-// ==================
-// ===== TEXTE À TROUS (FR) =====
-// ==================
+// ====================
+// ===== TEXTE À TROUS FR ======
+// ====================
 function createFill(){
   const container=document.getElementById('fillContainer'); if(!container) return;
   container.innerHTML='';
@@ -134,9 +197,7 @@ function createFill(){
   });
 }
 
-function normalizeDate(str){
-  return str.trim().toLowerCase().replace(/\s+/g,' ').replace(/\s*-\s*/g,'-');
-}
+function normalizeDate(str){ return str.trim().toLowerCase().replace(/\s+/g,' ').replace(/\s*-\s*/g,'-'); }
 
 function checkFill(){
   let ok=0;
@@ -149,88 +210,67 @@ function checkFill(){
   document.getElementById('fillResult')?.textContent = `Score : ${ok}/${eventsDates.length}`;
 }
 
-// ==================
-// ===== TEXTE À TROUS (EN) =====
-// ==================
+// ====================
+// ===== TEXTE ANGLAIS ======
 const englishText = `Blue Origin's New Glenn rocket was launched on November 13, 2025. 
 It carried two satellites into low Earth orbit, and its first stage landed safely at sea. 
 This is important because reusing rockets makes space missions cheaper and more sustainable, which helps the future of space exploration.
-
 The launch also shows how private companies like Blue Origin and SpaceX are pushing space technology forward. 
 Their competition encourages faster progress and can lead to new opportunities, such as better satellite networks, scientific missions, and maybe space tourism.
-
 But reusable rockets still bring challenges. 
 They must be very safe, and their launches can affect the environment. 
 Companies and countries need to work together to make sure future missions are responsible and secure.
-
 Overall, New Glenn's success shows how quickly the space industry is changing and how private companies are now shaping the future of space exploration.`;
 
 let englishFillAnswers={};
-
-function createEnglishFill() {
-    const container = document.getElementById("englishFillContainer");
-    container.innerHTML = "";
-    const words = englishText.split(" ");
-    const indexes = [];
-    while (indexes.length < 12) {
-        let r = Math.floor(Math.random() * words.length);
-        if (!indexes.includes(r) && words[r].length > 3) indexes.push(r);
+function createEnglishFill(){
+  const container=document.getElementById("englishFillContainer"); if(!container) return;
+  container.innerHTML='';
+  const words=englishText.split(" ");
+  const indexes=[];
+  while(indexes.length<12){
+    let r=Math.floor(Math.random()*words.length);
+    if(!indexes.includes(r) && words[r].length>3) indexes.push(r);
+  }
+  englishFillAnswers={};
+  const newWords=words.map((w,i)=>{
+    if(indexes.includes(i)){
+      const clean=w.replace(/[^a-zA-Z']/g,"");
+      englishFillAnswers[i]=clean;
+      return `<input data-id="${i}" class="fillInput">`;
     }
-    englishFillAnswers = {};
-    const newWords = words.map((w, i) => {
-        if (indexes.includes(i)) {
-            const clean = w.replace(/[^a-zA-Z']/g, "");
-            englishFillAnswers[i] = clean;
-            return `<input data-id="${i}" class="fillInput">`;
-        }
-        return w;
-    });
-    container.innerHTML = newWords.join(" ");
+    return w;
+  });
+  container.innerHTML=newWords.join(" ");
+}
+function checkEnglishFill(){
+  const inputs=document.querySelectorAll(".fillInput");
+  let correct=0;
+  inputs.forEach(input=>{
+    const id=input.dataset.id;
+    const answer=englishFillAnswers[id].toLowerCase();
+    const value=input.value.trim().toLowerCase();
+    if(value===answer){input.style.background="#9f9"; correct++;} 
+    else {input.style.background="#f99";}
+  });
+  document.getElementById("englishFillResult").innerHTML=`<h3>✔️ ${correct} / ${inputs.length} correct</h3>`;
 }
 
-function checkEnglishFill() {
-    const inputs = document.querySelectorAll(".fillInput");
-    let correct = 0;
-    inputs.forEach(input => {
-        const id = input.dataset.id;
-        const answer = englishFillAnswers[id].toLowerCase();
-        const value = input.value.trim().toLowerCase();
-        if (value === answer) {
-            input.style.background = "#9f9";
-            correct++;
-        } else {
-            input.style.background = "#f99";
-        }
-    });
-    document.getElementById("englishFillResult").innerHTML =
-        `<h3>✔️ ${correct} / ${inputs.length} correct</h3>`;
+// ====================
+// ===== TRACK VISITEUR =====
+function trackVisitor(){
+  fetch('track.php')
+    .then(res=>res.json())
+    .then(data=>console.log('Visiteur tracé :',data))
+    .catch(err=>console.warn('Erreur tracking :',err));
 }
 
-// ==================
-// ===== SIMULATION =====
-// ==================
-function startSimulation(){
-  generateDatesQCM();
-  createMatch();
-  createFill();
-  createEnglishFill();
-  alert("Simulation lancée : fais le QCM, relie les réponses et complète le texte à trous, puis vérifie chaque partie pour obtenir ton score !");
-  const sim=document.getElementById('simResult'); if(sim) sim.textContent='Mode interro actif : complète tout et vérifie chaque section.';
-}
-
-// ==================
+// ====================
 // ===== INITIALISATION =====
-// ==================
-window.addEventListener('load', ()=>{
+window.addEventListener('load',()=>{
   if(document.getElementById('qcmDatesForm')) generateDatesQCM();
   if(document.getElementById('fillContainer')) createFill();
-  if(document.getElementById('englishFillContainer')) createEnglishFill();
   if(document.getElementById('matchContainer')) createMatch();
+  if(document.getElementById('englishFillContainer')) createEnglishFill();
+  trackVisitor();
 });
-
-// ==================
-// ===== TRACKING VISITEURS =====
-// ==================
-fetch("/api/track.php")
-    .then(res => res.json())
-    .then(data => console.log("Visiteur tracé :", data));
