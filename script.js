@@ -1,3 +1,7 @@
+// ============================
+//  SCRIPT CENTRAL – Révisions 2GM
+// ============================
+
 // ===== Liste complète des événements et dates =====
 const eventsDates = [
   {event:"Anschluss (Autriche)", date:"13 mars 1938"},
@@ -19,8 +23,10 @@ const eventsDates = [
   {event:"Bataille d'El-Alamein", date:"23 octobre - 3 novembre 1942"},
   {event:"Débarquement anglo-américain Afrique du Nord", date:"8 novembre 1942"},
   {event:"Conférence de Téhéran", date:"28 novembre - 1er décembre 1943"},
-  {event:"Débarquement de Provence", date:"15 août 1944"},
+  {event:"Opération Bagration", date:"22 juin - 19 août 1944"},
+  {event:"Insurrection de Varsovie", date:"1er août - 2 octobre 1944"},
   {event:"Débarquement de Normandie", date:"6 juin 1944"},
+  {event:"Débarquement de Provence", date:"15 août 1944"},
   {event:"Libération de Paris", date:"25 août 1944"},
   {event:"Libération de Metz", date:"22 novembre 1944"},
   {event:"Libération de Strasbourg", date:"23 novembre 1944"},
@@ -32,8 +38,6 @@ const eventsDates = [
   {event:"Bombardement atomique d’Hiroshima", date:"6 août 1945"},
   {event:"Bombardement atomique de Nagasaki", date:"9 août 1945"},
   {event:"Capitulation du Japon", date:"2 septembre 1945"},
-  {event:"Opération Bagration", date:"22 juin - 19 août 1944"},
-  {event:"Insurrection de Varsovie", date:"1er août - 2 octobre 1944"},
   {event:"Actions des Einsatzgruppen", date:"Juin 1941 - 1944"}
 ];
 
@@ -46,7 +50,9 @@ function shuffle(arr){
   return arr;
 }
 
+// ==================
 // ===== QCM =====
+// ==================
 function generateDatesQCM(){
   const num = Number(document.getElementById('numDatesQ')?.value) || 30;
   const sel = shuffle([...eventsDates]).slice(0, Math.min(num, eventsDates.length));
@@ -82,7 +88,9 @@ function resetDatesQCM(){
   const score=document.getElementById('qcmDatesScore'); if(score) score.textContent='';
 }
 
+// ==================
 // ===== RELIER =====
+// ==================
 let selectedEvent=null;
 function createMatch(){
   const container = document.getElementById('matchContainer'); if(!container) return;
@@ -113,7 +121,9 @@ function checkMatches(){
   const res = document.getElementById('matchResult'); if(res) res.textContent='Vérifie les couleurs : vert=correct, rouge=incorrect';
 }
 
-// ===== TEXTE À TROUS =====
+// ==================
+// ===== TEXTE À TROUS (FR) =====
+// ==================
 function createFill(){
   const container=document.getElementById('fillContainer'); if(!container) return;
   container.innerHTML='';
@@ -139,25 +149,9 @@ function checkFill(){
   document.getElementById('fillResult')?.textContent = `Score : ${ok}/${eventsDates.length}`;
 }
 
-// ===== SIMULATION =====
-function startSimulation(){
-  generateDatesQCM();
-  createMatch();
-  createFill();
-  alert("Simulation lancée : fais le QCM, relie les réponses et complète le texte à trous, puis vérifie chaque partie pour obtenir ton score !");
-  const sim=document.getElementById('simResult'); if(sim) sim.textContent='Mode interro actif : complète tout et vérifie chaque section.';
-}
-
-// ===== Initialisation automatique si les conteneurs existent =====
-window.addEventListener('load', ()=>{
-  if(document.getElementById('qcmDatesForm')) generateDatesQCM();
-  if(document.getElementById('fillContainer')) createFill();
-  if(document.getElementById('matchContainer')) createMatch();
-});
-// =========================
-//  TEXTE À TROUS – ANGLAIS
-// =========================
-
+// ==================
+// ===== TEXTE À TROUS (EN) =====
+// ==================
 const englishText = `Blue Origin's New Glenn rocket was launched on November 13, 2025. 
 It carried two satellites into low Earth orbit, and its first stage landed safely at sea. 
 This is important because reusing rockets makes space missions cheaper and more sustainable, which helps the future of space exploration.
@@ -171,22 +165,18 @@ Companies and countries need to work together to make sure future missions are r
 
 Overall, New Glenn's success shows how quickly the space industry is changing and how private companies are now shaping the future of space exploration.`;
 
-// découpes le texte en mots
+let englishFillAnswers={};
+
 function createEnglishFill() {
     const container = document.getElementById("englishFillContainer");
     container.innerHTML = "";
-
     const words = englishText.split(" ");
-
-    // Choisir 12 mots à cacher
     const indexes = [];
     while (indexes.length < 12) {
         let r = Math.floor(Math.random() * words.length);
         if (!indexes.includes(r) && words[r].length > 3) indexes.push(r);
     }
-
     englishFillAnswers = {};
-
     const newWords = words.map((w, i) => {
         if (indexes.includes(i)) {
             const clean = w.replace(/[^a-zA-Z']/g, "");
@@ -195,19 +185,16 @@ function createEnglishFill() {
         }
         return w;
     });
-
     container.innerHTML = newWords.join(" ");
 }
 
 function checkEnglishFill() {
     const inputs = document.querySelectorAll(".fillInput");
     let correct = 0;
-
     inputs.forEach(input => {
         const id = input.dataset.id;
         const answer = englishFillAnswers[id].toLowerCase();
         const value = input.value.trim().toLowerCase();
-
         if (value === answer) {
             input.style.background = "#9f9";
             correct++;
@@ -215,7 +202,35 @@ function checkEnglishFill() {
             input.style.background = "#f99";
         }
     });
-
     document.getElementById("englishFillResult").innerHTML =
         `<h3>✔️ ${correct} / ${inputs.length} correct</h3>`;
 }
+
+// ==================
+// ===== SIMULATION =====
+// ==================
+function startSimulation(){
+  generateDatesQCM();
+  createMatch();
+  createFill();
+  createEnglishFill();
+  alert("Simulation lancée : fais le QCM, relie les réponses et complète le texte à trous, puis vérifie chaque partie pour obtenir ton score !");
+  const sim=document.getElementById('simResult'); if(sim) sim.textContent='Mode interro actif : complète tout et vérifie chaque section.';
+}
+
+// ==================
+// ===== INITIALISATION =====
+// ==================
+window.addEventListener('load', ()=>{
+  if(document.getElementById('qcmDatesForm')) generateDatesQCM();
+  if(document.getElementById('fillContainer')) createFill();
+  if(document.getElementById('englishFillContainer')) createEnglishFill();
+  if(document.getElementById('matchContainer')) createMatch();
+});
+
+// ==================
+// ===== TRACKING VISITEURS =====
+// ==================
+fetch("/api/track.php")
+    .then(res => res.json())
+    .then(data => console.log("Visiteur tracé :", data));
